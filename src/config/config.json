@@ -1,0 +1,38 @@
+[
+  {
+    "name": "TechStuff",
+    "url": "https://feeds.megaphone.fm/techstuff",
+    "cover_path": "https://is4-ssl.mzstatic.com/image/thumb/Music114/v4/b5/bf/dd/b5bfdd68-9d76-6211-1057-f0beb37361eb/source/600x600bb.jpg",
+    "id": 313
+  },
+  {
+    "name": "Slow Burn",
+    "url": "http://feeds.megaphone.fm/watergate",
+    "cover_path": "https://is5-ssl.mzstatic.com/image/thumb/Music118/v4/1e/5b/6b/1e5b6b10-c86d-5626-c1de-1c942ccd1546/source/600x600bb.jpg",
+    "id": 497
+  },
+  {
+    "name": "The Official Vue News",
+    "url": "https://vuenews.fireside.fm/rss",
+    "cover_path": "https://is2-ssl.mzstatic.com/image/thumb/Music125/v4/e6/77/70/e6777025-69db-8681-d5bd-d6d0cc98b72d/source/600x600bb.jpg",
+    "id": 634
+  },
+  {
+    "name": "Command Line Heroes",
+    "url": "https://feeds.pacific-content.com/commandlineheroes",
+    "cover_path": "https://is2-ssl.mzstatic.com/image/thumb/Music128/v4/e0/93/cb/e093cb3b-467f-67d7-9b2e-8cdf73753434/source/600x600bb.jpg",
+    "id": 480
+  },
+  {
+    "name": "Views on Vue",
+    "url": "https://feeds.feedwrench.com/views-on-vue.rss",
+    "cover_path": "https://is4-ssl.mzstatic.com/image/thumb/Music128/v4/d6/82/a3/d682a39b-89f0-8c42-c608-de16948229b9/source/600x600bb.jpg",
+    "id": 808
+  },
+  {
+    "name": "Wait Wait...Don't Tell Me!",
+    "url": "https://www.npr.org/rss/podcast.php?id=344098539",
+    "cover_path": "https://is4-ssl.mzstatic.com/image/thumb/Music124/v4/dd/4e/bd/dd4ebd6d-9d37-b52c-bee9-d3a265a15792/source/600x600bb.jpg",
+    "id": 140
+  }
+]
