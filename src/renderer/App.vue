@@ -25,39 +25,8 @@ import {rename,readdir, readdirSync,exists} from 'fs';
 
     methods:{
       main_event_listener: async function(){
-        ipcRenderer.on('async_download_setup',(event,url_name,url_chain,file_size)=>{
-
-          
-
-          console.log("Called download");
-          var pending_downloads = this.$store.getters.get_Pending_Downloads;
-          var matched = false;
-          pending_downloads.forEach((download,index)=>{
-            if(download.url_name === url_name){
-              matched = true;
-              this.add_Download_Item(download,url_name,file_size);
-            }
-          })
-          
-          if(matched == false){
-            
-            pending_downloads.forEach((download)=>{
-              url_chain.forEach((chain)=>{
-                if(download.url_name == chain){
-                  this.add_Download_Item(download,url_name,file_size);
-                  
-                }
-
-
-              })
-
-            })
-            //event.sender.send("async_download_setup_err");
-          }
-          
-          
-
-          
+        ipcRenderer.on('async_download_setup',(event,file_size)=>{
+          this.$store.commit("set_Current_Download_File_Size",file_size);
         });
 
        
