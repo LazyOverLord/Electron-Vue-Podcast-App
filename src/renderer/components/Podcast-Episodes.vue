@@ -105,7 +105,7 @@ export default {
 
         create_Download_Item:function(url,episode_title){
 
-            current_window.webContents.downloadURL(url);
+           //current_window.webContents.downloadURL(url);
 
 
             var file_characters_check = ['/',":","*","?","<",">","|",'\\',"#"];
@@ -128,8 +128,30 @@ export default {
                 var final_split = file_name.split("?");
                 file_name = final_split[0];
             }
+
+            var download_payload = {};
+            download_payload["podcast_name"] = this.podcast_data.name;
+            download_payload["podcast_id"] = this.podcast_data.id;
+            download_payload["cover_path"] = this.podcast_data.cover_path;
+            download_payload["episode_title"] = episode_title;
+            download_payload["url_stub"] = file_name;
+            download_payload["url"] = url;
             
-            
+            var current_que = this.$store.getters.get_Download_Que;
+            if(current_que.length ==0){
+                var current_download = this.$store.getters.get_Current_Download;
+                if(current_download.length == 0){
+                    //current_window.webContents.downloadURL(url);
+                    this.$store.commit('update_Current_Download_Item');
+                }
+                else{
+                    this.$store.commit('add_Download_Item_To_Que',download_payload);
+                }
+            }
+
+            else{
+               this.$store.commit('add_Download_Item_To_Que',download_payload);
+            }
             
 
         
