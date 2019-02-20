@@ -24,7 +24,7 @@
                     <p> {{data.title}}</p>
                     <img :src="data.podcast_cover">
                     <p> The state of the download is {{data.download_state}}</p>
-                    <p> The size of the download is {{data.download_size}} mb</p>
+                   
                     <p> Download percent is  {{data.amount_downloaded}}</p>
                     <button @click="cancel_download(data)"> Cancel Download </button>
 
@@ -67,7 +67,7 @@ export default {
 
     computed:{
         ...mapGetters({
-            downloads:"get_Download_Items",
+            downloads:"get_Current_Download",
             pending_downloads:"get_Pending_Downloads",
             local_downloads:"get_Local_Downloads",
             
