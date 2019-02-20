@@ -27,6 +27,7 @@ import {rename,readdir, readdirSync,exists} from 'fs';
       main_event_listener: async function(){
         ipcRenderer.on('async_download_setup',(event,file_size)=>{
           this.$store.commit("set_Current_Download_File_Size",file_size);
+          this.$store.commit("update_Current_Download_State","downloading");
         });
 
        
