@@ -353,6 +353,34 @@ update_Download_Item_State(state,payload){
 },
 
 
+add_Download_Item_To_Que(state,payload){
+  // podcast_name
+  // podcast_id 
+  // podcast cover url path
+  // episode title
+  // url stub
+  // file size
+  state.download_que.push(payload);
+
+},
+
+// Do not call by its self
+// download_Que remove head and update_Current_Download_Item are to be used with action
+download_Que_Remove_Head(state){
+  state.download_que.pop();
+},
+
+
+update_Current_Download_Item(state,payload){
+  state.current_download.push(payload);
+},
+
+
+remove_Current_Download_Item(state){
+  state.current_download.pop();
+}
+
+
 
   
 
@@ -410,6 +438,8 @@ const getters = {
 }
 
 const actions = {
+
+  
   pullFeed (context,url) {
     console.log("Called pull feed");
     var podcast_id = router.currentRoute.params.id;
