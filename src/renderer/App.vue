@@ -33,7 +33,7 @@ import {rename,readdir, readdirSync,exists} from 'fs';
 
         ipcRenderer.on("async_download_finalize_download",(event,url_title)=>{
 
-          var curent_download_item = this.$store.getter.get_Current_Download;
+          var curent_download_item = this.$store.getters.get_Current_Download;
 
           var file_characters_check = ['/',":","*","?","<",">","|",'\\','#'];
           var episode_name = curent_download_item[0]["episode_title"];
