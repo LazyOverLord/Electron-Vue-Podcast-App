@@ -377,6 +377,11 @@ update_Current_Download_Item(state,payload){
   state.current_download.push(payload);
 },
 
+update_Current_Download_State(state,new_download_state){
+  // can be pending , paused , or downloading
+  state.current_download[0]["download_state"] = new_download_state;
+},
+
 
 remove_Current_Download_Item(state){
   state.current_download.pop();
