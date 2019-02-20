@@ -117,7 +117,7 @@ export default {
                     podcast_name = podcast_name.replace(char,"");
                 }
 
-                if(cleaned_episode_title.includes(char)==ture){
+                if(cleaned_episode_title.includes(char)==true){
                     cleaned_episode_title = cleaned_episode_title.replace(char,"");
                 }
             })
