@@ -365,7 +365,13 @@ const getters = {
     return state.config_data;
   },
 
-  
+  get_Download_Que(state,getters){
+    return state.download_que;
+  },
+
+  get_Current_Download(state,getters){
+    return state.current_download[0];
+  },
 
   get_Audio_Data(state,getters){
     return state.audio_player_data;
