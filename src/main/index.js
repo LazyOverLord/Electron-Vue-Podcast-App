@@ -118,7 +118,7 @@ function createWindow () {
         //finalize_download(item.getFilename());
         
         webContents.send('async_download_finalize_download',item.getFilename());
-        webContents.send("async_download_add_finish_item",item.getFilename());
+        //webContents.send("async_download_add_finish_item",item.getFilename());
       } else {
         console.log(`Download failed: ${state}`)
       }

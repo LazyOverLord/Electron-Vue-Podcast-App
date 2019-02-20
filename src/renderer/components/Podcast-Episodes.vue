@@ -147,7 +147,7 @@ export default {
             if(current_que.length ==0){
                 var current_download = this.$store.getters.get_Current_Download;
                 if(current_download.length == 0){
-                    //current_window.webContents.downloadURL(url);
+                    current_window.webContents.downloadURL(url);
                     this.$store.commit('update_Current_Download_Item',download_payload);
                 }
                 else{
