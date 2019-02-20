@@ -382,6 +382,10 @@ update_Current_Download_State(state,new_download_state){
   state.current_download[0]["download_state"] = new_download_state;
 },
 
+update_Current_Download_Download_Amount(state,new_download_amount){
+  state.current_download[0]["amount_downloaded"] = new_download_amount;
+},
+
 
 remove_Current_Download_Item(state){
   state.current_download.pop();
