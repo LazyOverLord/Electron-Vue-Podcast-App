@@ -359,7 +359,6 @@ add_Download_Item_To_Que(state,payload){
   // podcast cover url path
   // episode title
   // url stub
-  // file size
   state.download_que.push(payload);
 
 },
@@ -372,6 +371,9 @@ download_Que_Remove_Head(state){
 
 
 update_Current_Download_Item(state,payload){
+  // should also have 
+  // download state 
+  // amount downloaded
   state.current_download.push(payload);
 },
 
