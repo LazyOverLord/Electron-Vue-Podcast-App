@@ -398,7 +398,7 @@ const getters = {
   },
 
   get_Current_Download(state,getters){
-    return state.current_download[0];
+    return state.current_download;
   },
 
   get_Audio_Data(state,getters){
