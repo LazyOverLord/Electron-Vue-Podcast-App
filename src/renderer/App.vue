@@ -63,36 +63,38 @@ import {rename,readdir, readdirSync,exists} from 'fs';
        
 
         ipcRenderer.on("async_download_finalize_download",(event,url_title)=>{
-          var download_items = this.$store.getters.get_Download_Items;
-          download_items.forEach((download)=>{
-            if(download.url_title == url_title){
-              
-              var file_characters_check = ['/',":","*","?","<",">","|",'\\','#'];
-              var episode_name = download.title;
 
-              file_characters_check.forEach((char)=>{
+          var curent_download_item = this.$store.getter.get_Current_Download;
+
+          var file_characters_check = ['/',":","*","?","<",">","|",'\\','#'];
+          var episode_name = curent_download_item[0]["episode_title"];
+          var podcast_name = curent_download_item[0]["podcast_name"];
+
+          file_characters_check.forEach((char)=>{
                 if(episode_name.includes(char) == true){
                   episode_name = episode_name.replace(char,"");
                 }
               })
+        
 
-              var temp = "@/../downloads/temp/"+download.url_title;
-              var final_download_path = "@/../downloads/"+download.podcast_name+"/"+episode_name+".mp3";
-              rename(temp,final_download_path,(err)=>{
+          var temp = "@/../downloads/temp/"+url_title;
+          var final_download_path = "@/../downloads/"+podcast_name+"/"+episode_name+".mp3";
+
+          rename(temp,final_download_path,(err)=>{
                 if(err){
                   console.log(err);
                 }
               });
-            }
-          })
+
+
+          
+            
+          
         });
 
         ipcRenderer.on("async_download_update_download_amount",(event,download_id,amount_downloaded)=>{
-          var payload ={};
-          payload["download_id"] = download_id;
-          payload["amount_downloaded"] = amount_downloaded;
-          
-          this.$store.commit('update_Download_Item_Download_Amount',payload);
+
+          this.$store.commit("update_Current_Download_Download_Amount",amount_downloaded);
         });
 
         ipcRenderer.on("async_download_change_state",(event,download_id,new_state)=>{
