@@ -21,10 +21,10 @@
             <p> Downloads </p>
             <ul>
                 <li v-for="data in downloads">
-                    <p> {{data.title}}</p>
-                    <img :src="data.podcast_cover">
+                    <p> {{data.episode_title}}</p>
+                    <img :src="data.cover_path">
                     <p> The state of the download is {{data.download_state}}</p>
-                   
+                    <p> The size of the files is {{data.file_size}}</p>
                     <p> Download percent is  {{data.amount_downloaded}}</p>
                     <button @click="cancel_download(data)"> Cancel Download </button>
 
