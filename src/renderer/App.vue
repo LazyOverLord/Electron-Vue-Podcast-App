@@ -30,6 +30,10 @@ import {rename,readdir, readdirSync,exists} from 'fs';
           this.$store.commit("update_Current_Download_State","downloading");
         });
 
+        ipcRenderer.on("async_download_state_updated",(event,new_state)=>{
+          this.$store.commit('update_Current_Download_State',new_state);
+        })
+
        
 
         ipcRenderer.on("async_download_finalize_download",(event,url_title)=>{

@@ -125,9 +125,21 @@ function createWindow () {
     })
 
     ipcMain.on("async_download_cancel",(event,download_item)=>{
-      if(download_item.url_title === item.getFilename()){
-        event.sender.send("async_download_cancel_ok",download_item);
         item.cancel();
+      
+    })
+
+    ipcMain.on("async_download_pause",(event)=>{
+      if(item.isPaused()== false){
+        item.pause();
+        event.sender.send("async_download_state_updated","paused");
+      }
+    })
+
+    ipcMain.on("async_download_resume",(event)=>{
+      if(item.isPaused()==true){
+        item.resume();
+        event.sender.send("async_download_state_updated","downloading");
       }
     })
 
