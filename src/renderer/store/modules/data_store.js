@@ -21,7 +21,7 @@ const state = {
   podcast_feed_data:[],
   search_results_cache:{search_term:"",results:[]},
   pending_downloads:[],
-  downloads:[],
+  current_download:[],
   local_downloads:[]
 
   
@@ -75,7 +75,7 @@ const mutations = {
       podcast_feed_data:[],
       search_results_cache:{search_term:"",results:[]},
       pending_downloads:[],
-      downloads:[],
+      current_download:[],
       local_downloads:[],
 
       // clearing old unused variable
