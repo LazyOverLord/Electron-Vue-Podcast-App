@@ -402,65 +402,7 @@ const getters = {
 }
 
 const actions = {
-  pullFeed (context,url) {
-    console.log("Called pull feed");
-    var podcast_id = router.currentRoute.params.id;
-    ipcRenderer.send("async_pull_feed",url);
-    
-    var outside_episodes = [];
-
-    ipcRenderer.on("async_pull_feed_res",(event,data) =>{
-
-      var episodes = [];
-      var parser = new DOMParser();
-      var xml = parser.parseFromString(data,"text/xml");
-      var channel = xml.getElementsByTagName("channel")[0];
-      var main_title = channel.getElementsByTagName('title')[0].textContent;
-      var check_image = channel.getElementsByTagName('image');
-      var desc = channel.getElementsByTagName('description')[0].textContent;
-    
-      
-      var image_url = "";
-      if(check_image.length != 0){
-          image_url = check_image[0].getElementsByTagName('url')[0].textContent;
-      }
-    
-      if(image_url==""){
-          image_url = channel.getElementsByTagName("itunes:image")[0].getAttribute("href");
-      }
-    
-      
-      var current_time = new Date();
-      
-    
-      var items = channel.getElementsByTagName("item");
-      for(var i =0;i<items.length;i++){
-          var temp = {};
-          var title = items[i].getElementsByTagName("title")[0].textContent;
-          var desc = items[i].getElementsByTagName("description")[0].textContent;
-          var enclosure = items[i].getElementsByTagName("enclosure")[0];
-          var url = enclosure.getAttribute("url");
-          temp["title"] = title;
-          temp["desc"] = desc;
-          temp["url"] = url;
-          episodes.push(temp);
-      }
-    
-      
-    
-      var data = {};
-      data["id"] = podcast_id;
-      data["data"] = episodes;
-      
-      outside_episodes = episodes;
-
-      
-    
-    });
-
-    
-
-  },
+  
 
   test_Pull_Feed(context,url){
     axios.get("url")
