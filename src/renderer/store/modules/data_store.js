@@ -22,6 +22,7 @@ const state = {
   search_results_cache:{search_term:"",results:[]},
   pending_downloads:[],
   current_download:[],
+  download_que:[],
   local_downloads:[]
 
   
@@ -76,6 +77,7 @@ const mutations = {
       search_results_cache:{search_term:"",results:[]},
       pending_downloads:[],
       current_download:[],
+      download_que:[],
       local_downloads:[],
 
       // clearing old unused variable
