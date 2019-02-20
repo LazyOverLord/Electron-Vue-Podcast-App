@@ -386,6 +386,10 @@ update_Current_Download_Download_Amount(state,new_download_amount){
   state.current_download[0]["amount_downloaded"] = new_download_amount;
 },
 
+set_Current_Download_File_Size(state,file_size){
+  state.current_download[0]["file_size"] = file_size;
+},
+
 
 remove_Current_Download_Item(state){
   state.current_download.pop();
