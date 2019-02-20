@@ -111,10 +111,14 @@ export default {
             var file_characters_check = ['/',":","*","?","<",">","|",'\\',"#"];
 
             var podcast_name = this.podcast_data.name;
-
+            var cleaned_episode_title = episode_title;
             file_characters_check.forEach((char)=>{
                 if(podcast_name.includes(char) == true){
                     podcast_name = podcast_name.replace(char,"");
+                }
+
+                if(cleaned_episode_title.includes(char)==ture){
+                    cleaned_episode_title = cleaned_episode_title.replace(char,"");
                 }
             })
 
@@ -130,10 +134,10 @@ export default {
             }
 
             var download_payload = {};
-            download_payload["podcast_name"] = this.podcast_data.name;
+            download_payload["podcast_name"] = podcast_name;
             download_payload["podcast_id"] = this.podcast_data.id;
             download_payload["cover_path"] = this.podcast_data.cover_path;
-            download_payload["episode_title"] = episode_title;
+            download_payload["episode_title"] = cleaned_episode_title;
             download_payload["url_stub"] = file_name;
             download_payload["url"] = url;
             
