@@ -141,6 +141,7 @@ export default {
             download_payload["url_stub"] = file_name;
             download_payload["url"] = url;
             download_payload["amount_downloaded"] = 0;
+            download_payload["file_size"] = 0;
             download_payload["download_state"] = "pending";
             
             var current_que = this.$store.getters.get_Download_Que;

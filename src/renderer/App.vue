@@ -61,10 +61,7 @@ import {rename,readdir, readdirSync,exists} from 'fs';
           
         });
 
-        ipcRenderer.on("async_download_update_download",(event,download_id,amount_downloaded)=>{
-
-          this.$store.commit("update_Current_Download_Download_Amount",amount_downloaded);
-        });
+        
 
         ipcRenderer.on("async_download_change_state",(event,download_id,new_state)=>{
           var payload = {};

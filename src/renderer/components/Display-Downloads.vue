@@ -83,23 +83,20 @@ export default {
     methods:{
         Download_Listener:async function (){
             ipcRenderer.on("async_download_page_update_download",(event,file_name,amount_downloaded)=>{
-                
-                this.downloads.forEach((download)=>{
-                    if(download.url_title == file_name){
-                        var percent = amount_downloaded / download.download_size * 100;
-                        percent = Math.round(percent);
-                        var current_percent = download.amount_downloaded;
-                        
-                        if(percent!= current_percent){
-                            var payload = {};
-                            payload["download_id"] = download.download_id;
-                            payload["amount_downloaded"] = percent;
-                            this.$store.commit('update_Download_Item_Download_Amount',payload);
-                        }
 
-                        
-                    }
-                })
+                var current_download = this.$store.getters.get_Current_Download;
+
+                var file_size = current_download[0]["file_size"];
+
+                var percent = amount_downloaded / file_size * 100;
+                percent = Math.round(percent);
+                var current_percent = current_download[0]["amount_downloaded"];
+
+                if(percent!= current_download){
+                    this.$store.commit('update_Current_Download_Download_Amount',percent);
+                }
+
+                
             });
 
             ipcRenderer.on("async_download_add_finish_item",(event,url_name)=>{
