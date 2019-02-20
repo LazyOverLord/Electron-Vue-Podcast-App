@@ -439,7 +439,20 @@ const getters = {
 
 const actions = {
 
-  
+  update_Current_Download({commit,state}){
+
+    var new_download_item = state.download_que[0];
+
+    commit("remove_Current_Download_Item");
+
+    commit('download_Que_Remove_Head');
+
+    commit('update_Current_Download_Item',new_download_item);
+  },
+
+
+
+
   pullFeed (context,url) {
     console.log("Called pull feed");
     var podcast_id = router.currentRoute.params.id;
