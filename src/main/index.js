@@ -84,8 +84,16 @@ function createWindow () {
 
       url_names = [...new Set(url_names)];
       
-     
-      webContents.send("async_download_setup",file_size,url_names);
+      var url_stub = "";
+
+      url_names.forEach((name)=>{
+        if(name === item.getFilename()){
+          url_stub = name;
+        }
+
+      })
+
+      webContents.send("async_download_setup",file_size,url_stub);
       
       
     })
