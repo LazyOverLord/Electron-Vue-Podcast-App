@@ -3,13 +3,13 @@
     <div>
         <router-link to="/"> Go Home </router-link>
 
-        <div v-if="pending_downloads.length!=0">
-            <p> Pending Downloads </p>
+        <div v-if="download_que.length!=0">
+            <p> Download Que </p>
             <ul>
-                <li v-for="data in pending_downloads">
+                <li v-for="data in download_que">
                     <p> {{data.podcast_name}}</p>
                     <p> {{data.file_name}}</p>
-                    <img :src="data.podcast_cover">
+                    <img :src="data.cover_path">
                 </li>
 
             </ul>
@@ -71,7 +71,7 @@ export default {
     computed:{
         ...mapGetters({
             downloads:"get_Current_Download",
-            pending_downloads:"get_Pending_Downloads",
+            download_que:"get_Download_Que",
             local_downloads:"get_Local_Downloads",
             
     })
