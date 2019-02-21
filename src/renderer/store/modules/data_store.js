@@ -457,6 +457,9 @@ const actions = {
 
   update_Current_Download({commit,state}){
 
+    if(state.download_que.length!=0){
+    // add code later to add current_download to finished download
+
     var new_download_item = state.download_que[0];
     var download_url = new_download_item["url"];
 
@@ -467,6 +470,13 @@ const actions = {
     commit('update_Current_Download_Item',new_download_item);
 
     current_window.webContents.downloadURL(download_url);
+
+    }
+
+    else{
+      // add code later to add current_download to finished download
+      commit("remove_Current_Download_Item");
+    }
   },
 
 
