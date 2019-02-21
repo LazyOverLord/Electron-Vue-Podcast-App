@@ -1,8 +1,9 @@
 
 
-import {ipcRenderer} from 'electron'
+import {ipcRenderer,remote} from 'electron'
 import router from '@/router'
 import axios from 'axios';
+var current_window = remote.getCurrentWindow();
 
 
 
@@ -457,12 +458,15 @@ const actions = {
   update_Current_Download({commit,state}){
 
     var new_download_item = state.download_que[0];
+    var download_url = new_download_item["url"];
 
     commit("remove_Current_Download_Item");
 
     commit('download_Que_Remove_Head');
 
     commit('update_Current_Download_Item',new_download_item);
+
+    current_window.webContents.downloadURL(download_url);
   },
 
 

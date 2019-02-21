@@ -44,6 +44,9 @@ import {rename,readdir, readdirSync,exists} from 'fs';
           var episode_name = curent_download_item[0]["episode_title"];
           var podcast_name = curent_download_item[0]["podcast_name"];
 
+          // Starts the next download in the que
+          this.$store.dispatch("update_Current_Download");
+
           file_characters_check.forEach((char)=>{
                 if(episode_name.includes(char) == true){
                   episode_name = episode_name.replace(char,"");
