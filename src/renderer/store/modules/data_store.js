@@ -389,7 +389,7 @@ update_Current_Download_Download_Amount(state,new_download_amount){
 
 set_Current_Download_Url_Stub(state,url_stub){
   state.current_download[0]["url_stub"] = url_stub;
-}
+},
 
 set_Current_Download_File_Size(state,file_size){
   state.current_download[0]["file_size"] = file_size;
