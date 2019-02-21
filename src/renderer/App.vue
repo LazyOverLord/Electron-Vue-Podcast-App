@@ -34,6 +34,10 @@ import {rename,readdir, readdirSync,exists} from 'fs';
           this.$store.commit('update_Current_Download_State',new_state);
         })
 
+        ipcRenderer.on("async_current_download_canceled",(event)=>{
+          this.$store.dispatch("update_Current_Download",true);
+        })
+
        
 
         ipcRenderer.on("async_download_finalize_download",(event,url_title)=>{
@@ -45,7 +49,7 @@ import {rename,readdir, readdirSync,exists} from 'fs';
           var podcast_name = curent_download_item[0]["podcast_name"];
 
           // Starts the next download in the que
-          this.$store.dispatch("update_Current_Download");
+          this.$store.dispatch("update_Current_Download",false);
 
           file_characters_check.forEach((char)=>{
                 if(episode_name.includes(char) == true){
@@ -92,6 +96,8 @@ import {rename,readdir, readdirSync,exists} from 'fs';
           payload["url"] = url_data;
           this.$store.commit("set_Audio_Data_Manual",payload);
         })
+
+        
 
         
 

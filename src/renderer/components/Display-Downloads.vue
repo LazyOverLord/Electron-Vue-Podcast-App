@@ -26,8 +26,8 @@
                     <p> The state of the download is {{data.download_state}}</p>
                     <p> The size of the files is {{data.file_size}}</p>
                     <p> Download percent is  {{data.amount_downloaded}}</p>
-                    <button @click="resume_download()"> Play</button>
-                    <button @click="pause_download()"> Pause</button>
+                    <button @click="resume_download(data)"> Play</button>
+                    <button @click="pause_download(data)"> Pause</button>
                     <button @click="cancel_download(data)"> Cancel Download </button>
                 
 
@@ -143,13 +143,13 @@ export default {
             this.$store.commit("set_Audio_Data_Manual",payload);
         },
 
-        pause_download:function(){
-            ipcRenderer.send("async_download_pause");
+        pause_download:function(download_item){
+            ipcRenderer.send("async_download_pause",download_item);
 
         },
 
-        resume_download:function(){
-            ipcRenderer.send('async_download_resume');
+        resume_download:function(download_item){
+            ipcRenderer.send('async_download_resume',download_item);
         }
 
         

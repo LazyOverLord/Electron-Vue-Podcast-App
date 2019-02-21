@@ -455,7 +455,7 @@ const getters = {
 
 const actions = {
 
-  update_Current_Download({commit,state}){
+  update_Current_Download({commit,state},canceled_bol){
 
     if(state.download_que.length!=0){
     // add code later to add current_download to finished download

@@ -2,6 +2,7 @@ import { app, BrowserWindow,ipcMain,net, session,webContents, WebContents} from 
 import {writeFile,exists,mkdir,readdir,rmdir,unlink,existsSync, readFile} from 'fs'
 import dataurl from "dataurl"
 import path from "path";
+import { eventNames } from 'cluster';
 
 
 const download_path = "@/../downloads";
@@ -125,21 +126,27 @@ function createWindow () {
     })
 
     ipcMain.on("async_download_cancel",(event,download_item)=>{
-        item.cancel();
+        // global event going to app.vue just to be safe
+        item.pause();
+        event.sender.send('async_current_download_canceled');
+        
       
     })
 
-    ipcMain.on("async_download_pause",(event)=>{
-      if(item.isPaused()== false){
-        item.pause();
-        event.sender.send("async_download_state_updated","paused");
-      }
+    ipcMain.on("async_download_pause",(event,download_item)=>{
+      if(download_item["url_stub"]===item.getFilename())
+          if(item.isPaused()== false){
+            item.pause();
+            event.sender.send("async_download_state_updated","paused");
+          }
     })
 
-    ipcMain.on("async_download_resume",(event)=>{
-      if(item.isPaused()==true){
-        item.resume();
-        event.sender.send("async_download_state_updated","downloading");
+    ipcMain.on("async_download_resume",(event,download_item)=>{
+      if(download_item["url_stub"] ===item.getFilename()){
+          if(item.isPaused()==true){
+              item.resume();
+            event.sender.send("async_download_state_updated","downloading");
+        }
       }
     })
 
