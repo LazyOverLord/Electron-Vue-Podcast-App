@@ -138,7 +138,7 @@ export default {
             download_payload["podcast_id"] = this.podcast_data.id;
             download_payload["cover_path"] = this.podcast_data.cover_path;
             download_payload["episode_title"] = cleaned_episode_title;
-            download_payload["url_stub"] = file_name;
+            download_payload["url_stub"] = "";
             download_payload["url"] = url;
             download_payload["amount_downloaded"] = 0;
             download_payload["file_size"] = 0;

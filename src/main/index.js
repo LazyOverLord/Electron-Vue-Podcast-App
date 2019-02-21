@@ -85,7 +85,7 @@ function createWindow () {
       url_names = [...new Set(url_names)];
       
      
-      webContents.send("async_download_setup",file_size);
+      webContents.send("async_download_setup",file_size,url_names);
       
       
     })
