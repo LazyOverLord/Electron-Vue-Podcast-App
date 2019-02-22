@@ -10,6 +10,9 @@
 <script>
 import {ipcRenderer, ipcMain} from "electron";
 import {rename,readdir, readdirSync,exists} from 'fs';
+import { requireTaskPool } from 'electron-remote';
+
+const gen_data_url = requireTaskPool(require.resolve('./gen_data_url.js'));
 
 
 
@@ -209,7 +212,21 @@ import {rename,readdir, readdirSync,exists} from 'fs';
        
     });
 
+    },
+
+    
+    
+
+    test: async function (){
+      var path = "@/../downloads/Trade Talks  PIIE/72 Richard Baldwin on Disruption, Technology and Trade.mp3";
+      var result = await gen_data_url.convertSong(path);
     }
+
+    
+    
+
+    
+    
 
     },
 
@@ -223,6 +240,7 @@ import {rename,readdir, readdirSync,exists} from 'fs';
     created:function(){
       this.$store.commit('reset_State');
       this.$store.commit('set_Default_Feed_State');
+      this.test();
       
 
       

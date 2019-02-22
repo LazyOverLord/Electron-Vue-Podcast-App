@@ -3,9 +3,10 @@ import {writeFile,exists,mkdir,readdir,rmdir,unlink,existsSync, readFile} from '
 import dataurl from "dataurl"
 import path from "path";
 import { eventNames } from 'cluster';
-import { requireTaskPool } from 'electron-remote';
 
-const gen_data_url = requireTaskPool(require.resolve('./gen_data_url'));
+
+
+
 
 
 
@@ -44,6 +45,8 @@ function createWindow () {
   
 
   mainWindow.loadURL(winURL);
+
+ 
   
   mainWindow.webContents.session.on('will-download', (event, item, webContents) => {
 
