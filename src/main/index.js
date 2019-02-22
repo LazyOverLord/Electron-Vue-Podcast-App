@@ -5,6 +5,8 @@ import path from "path";
 import { eventNames } from 'cluster';
 import { requireTaskPool } from 'electron-remote';
 
+const gen_data_url = requireTaskPool(require.resolve('./gen_data_url'));
+
 
 
 const download_path = "@/../downloads";
@@ -447,20 +449,5 @@ ipcMain.on("async_data_url_test",(event,file_path)=>{
 
 
 
-function download_Setup(url_name,url_names,file_size){
-  
-  mainWindow.webContents.send("async_download_setup",url_name,url_names,file_size);
-  
-}
 
-function download_page_update(file_name,amount_downloaded){
-  
-  mainWindow.webContents.send("async_download_page_update_download",file_name,amount_downloaded);
-}
-
-function finalize_download(file_name){
-  
-  mainWindow.webContents.send('async_download_finalize_download',file_name);
-  mainWindow.webContents.send("async_download_add_finish_item",file_name);
-}
 
