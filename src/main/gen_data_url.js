@@ -14,9 +14,7 @@ function convertSong(filePath){
     }
 
 
-module.exports = {
-    convertSong
-};
+
 
 
 

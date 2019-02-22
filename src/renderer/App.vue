@@ -12,7 +12,7 @@ import {ipcRenderer, ipcMain} from "electron";
 import {rename,readdir, readdirSync,exists} from 'fs';
 import { requireTaskPool } from 'electron-remote';
 
-const gen_data_url = requireTaskPool(require('./gen_data_url'));
+const gen_data_url = requireTaskPool(require.resolve('./gen_data_url'));
 
 
 
