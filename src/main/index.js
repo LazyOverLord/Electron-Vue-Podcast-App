@@ -1,13 +1,16 @@
-import { app, BrowserWindow,ipcMain,net, session,webContents, WebContents, remote} from 'electron'
+import { app, BrowserWindow,ipcMain,net, session,webContents, WebContents} from 'electron'
 import {writeFile,exists,mkdir,readdir,rmdir,unlink,existsSync, readFile} from 'fs'
 import dataurl from "dataurl"
 import path from "path";
 import { eventNames } from 'cluster';
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> parent of c34e7b6... created gen_data_url function
 
 
 const download_path = "@/../downloads";
