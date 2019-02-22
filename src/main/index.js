@@ -3,17 +3,7 @@ import {writeFile,exists,mkdir,readdir,rmdir,unlink,existsSync, readFile} from '
 import dataurl from "dataurl"
 import path from "path";
 import { eventNames } from 'cluster';
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of c34e7b6... created gen_data_url function
-
-
-
-
-=======
->>>>>>> parent of c34e7b6... created gen_data_url function
 
 
 const download_path = "@/../downloads";

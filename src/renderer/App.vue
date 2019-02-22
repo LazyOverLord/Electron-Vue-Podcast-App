@@ -10,9 +10,7 @@
 <script>
 import {ipcRenderer, ipcMain} from "electron";
 import {rename,readdir, readdirSync,exists} from 'fs';
-import { requireTaskPool } from 'electron-remote';
 
-const gen_data_url = requireTaskPool(require.resolve('./gen_data_url'));
 
 
 
@@ -217,10 +215,7 @@ const gen_data_url = requireTaskPool(require.resolve('./gen_data_url'));
     
     
 
-    test: async function (){
-      var path = "@/../downloads/Trade Talks  PIIE/72 Richard Baldwin on Disruption, Technology and Trade.mp3";
-      var result = await gen_data_url.convertSong(path);
-    }
+    
 
     
     
