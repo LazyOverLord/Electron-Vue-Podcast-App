@@ -235,7 +235,7 @@ import {rename,readdir, readdirSync,exists} from 'fs';
     created:function(){
       this.$store.commit('reset_State');
       this.$store.commit('set_Default_Feed_State');
-      this.test();
+      
       
 
       
