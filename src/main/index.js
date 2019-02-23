@@ -1,4 +1,4 @@
-import { app, BrowserWindow,ipcMain,net, session,webContents, WebContents} from 'electron'
+import { app, BrowserWindow,ipcMain,net, session,webContents, WebContents,protocol} from 'electron'
 import {writeFile,exists,mkdir,readdir,rmdir,unlink,existsSync, readFile} from 'fs'
 import dataurl from "dataurl"
 import path from "path";
@@ -44,7 +44,8 @@ function createWindow () {
   })
 
   
-  
+
+ 
   
 
   mainWindow.loadURL(winURL);
@@ -185,7 +186,9 @@ function createWindow () {
     
   
     
-    
+   
+
+
    
   mainWindow.on('ready-to-show', function() { 
     mainWindow.show(); 

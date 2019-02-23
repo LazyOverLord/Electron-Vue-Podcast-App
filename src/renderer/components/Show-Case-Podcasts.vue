@@ -1,6 +1,7 @@
 <template>
     
     <div>
+        <audio controls src="local://TechStuff/AI at IBM Think 2019.mp3"/>
 
         <router-link to="/downloads"> Go to downloads </router-link>
             
