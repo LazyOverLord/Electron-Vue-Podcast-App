@@ -3,7 +3,14 @@ import {writeFile,exists,mkdir,readdir,rmdir,unlink,existsSync, readFile} from '
 import dataurl from "dataurl"
 import path from "path";
 import { eventNames } from 'cluster';
+import os from 'os';
 
+
+
+
+var network_interfaces = os.networkInterfaces();
+
+const current_ip =network_interfaces['Wi-Fi'][0]["address"];
 
 
 const download_path = "@/../downloads";
@@ -210,6 +217,8 @@ app.on('activate', () => {
   }
 
 })
+
+
 
 
 
