@@ -1,23 +1,18 @@
-import { app, BrowserWindow,ipcMain,net, session,webContents, WebContents,protocol} from 'electron'
-import {writeFile,exists,mkdir,readdir,rmdir,unlink,existsSync, readFile} from 'fs'
-import dataurl from "dataurl"
+import { app, BrowserWindow,ipcMain,net} from 'electron'
+import {writeFile,exists,mkdir,readdir,rmdir,unlink, readFile} from 'fs'
+
 import path from "path";
 
-import os from 'os';
 
 
 
-var network_interfaces = os.networkInterfaces();
 
-const current_ip =network_interfaces['Wi-Fi'][0]["address"];
+
 
 
 const download_path = "@/../downloads";
 
-server.use(express.static(download_path));
-server.use(cors({
-  origin:"http://"+current_ip
-}))
+
 
 // Remove memory leak error
 process.setMaxListeners(0);
