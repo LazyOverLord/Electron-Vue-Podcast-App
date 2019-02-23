@@ -2,9 +2,8 @@ import { app, BrowserWindow,ipcMain,net, session,webContents, WebContents,protoc
 import {writeFile,exists,mkdir,readdir,rmdir,unlink,existsSync, readFile} from 'fs'
 import dataurl from "dataurl"
 import path from "path";
-import { eventNames } from 'cluster';
-import os from 'os';
 
+import os from 'os';
 
 
 
@@ -14,6 +13,11 @@ const current_ip =network_interfaces['Wi-Fi'][0]["address"];
 
 
 const download_path = "@/../downloads";
+
+server.use(express.static(download_path));
+server.use(cors({
+  origin:"http://"+current_ip
+}))
 
 // Remove memory leak error
 process.setMaxListeners(0);
@@ -185,10 +189,12 @@ function createWindow () {
   });
     
   
-    
+ 
    
 
+  
 
+  
    
   mainWindow.on('ready-to-show', function() { 
     mainWindow.show(); 
