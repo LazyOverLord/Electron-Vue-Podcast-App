@@ -78,7 +78,7 @@ const mutations = {
       search_results_cache:{search_term:"",results:[]},
       current_download:[],
       download_que:[],
-      local_downloads:[],
+      
 
       // clearing old unused variable
       pending_downloads:[],
@@ -284,11 +284,7 @@ add_Local_Download_Item(state,payload){
   }
 },
 
-add_Multiple_Local_Download_Items(state,payload){
-  payload.forEach((payload)=>{
-    state.local_downloads.push(payload);
-  })
-},
+
 
 remove_All_Local_Download_Items(state){
   state.local_downloads = [];
