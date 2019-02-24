@@ -10,6 +10,7 @@
 <script>
 import {ipcRenderer, ipcMain} from "electron";
 import {rename,readdir, readdirSync,exists} from 'fs';
+import path from "path";
 
 
 
@@ -246,6 +247,12 @@ import {rename,readdir, readdirSync,exists} from 'fs';
       this.main_event_listener();
       // Used for testing
       //this.get_Podcast_Downloads_All("@/../downloads");
+      var local_path =path.resolve('./downloads/TechStuff/AI at IBM Think 2019.mp3');
+      var payload = {};
+      payload["title"] = "Techstuff";
+      payload["cover_path"] = "";
+      payload["url"] ="file://"+local_path;
+      this.$store.commit("set_Audio_Data_Manual",payload);
      
     }
 
