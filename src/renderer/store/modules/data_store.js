@@ -210,51 +210,9 @@ remove_Podcast_Feed(state,feed_id){
   }
 },
 
-add_Pending_Download_Item(state,payload){
-  // file_name actual file name
-  // id podcast id
-  // url name is the rough name
-  var pending_download_ids = [];
-  state.pending_downloads.forEach((download)=>{
-    pending_download_ids.push(download.download_id);
 
-  })
 
-  if(pending_download_ids.length == 0){
-    var download_id = Math.floor((Math.random(1)*1000));
-    payload["download_id"] = download_id;
-    state.pending_downloads.push(payload);
-  }
-  
-  else{
-    var check_download_id = Math.floor((Math.random(1)*1000));
-    var result = pending_download_ids.indexOf(check_download_id);
-    if(result == -1){
-      payload["download_id"] = check_download_id;
-      state.pending_downloads.push(payload);
-    }
-    else{
-      while(true){
-        var check_download_id = Math.floor((Math.random(1)*1000));
-        var result = pending_download_ids.indexOf(check_download_id);
-        if(result == -1){
-          payload['download_id'] = check_download_id;
-          state.pending_downloads.push(payload);
-          break;
-        }
-      }
-    }
-  }
-  
-},
 
-remove_Pending_Download_Item(state,pending_download_id){
-  state.pending_downloads.forEach((download,index)=>{
-    if(download.download_id === pending_download_id){
-      state.pending_downloads.splice(index,1);
-    }
-  })
-},
 
 add_Dowmload_Item(state,payload){
   // should be passed to this
