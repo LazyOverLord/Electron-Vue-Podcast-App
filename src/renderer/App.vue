@@ -253,6 +253,9 @@ import path from "path";
       payload["cover_path"] = "";
       payload["url"] ="file://"+local_path;
       this.$store.commit("set_Audio_Data_Manual",payload);
+
+
+      
      
     }
 

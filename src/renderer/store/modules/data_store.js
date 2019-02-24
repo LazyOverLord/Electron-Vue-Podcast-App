@@ -52,6 +52,18 @@ const mutations = {
       state.config_data[i].pending_downloads = [];
     }
 
+    if(state.local_downloads.length == 0){
+      for(var i = 0;i<state.config_data.length;i++){
+        var temp = [];
+        var temp_obj = {};
+        temp_obj["id"] = state.config_data[i]["id"];
+        temp_obj["name"] = state.config_data[i]["name"];
+        
+        temp.push(temp_obj);
+        state.local_downloads.push(temp);
+      }
+    }
+
     
     
 
@@ -72,6 +84,7 @@ const mutations = {
     var default_state ={
       // used to clear saved podcasts for development
       //config_data:[],
+      //local_downloads:[],
 
       audio_player_data:{},
       podcast_feed_data:[],
@@ -249,39 +262,19 @@ remove_Download_Item(state,download_id){
 },
 
 add_Local_Download_Item(state,payload){
-  // payload should have
-  //  podcast_name , podcast_id , name , file_path , 
-  var current_local_downloads_ids = [];
-  var found = false;
-  state.local_downloads.forEach((local_download)=>{
-    current_local_downloads_ids.push(local_download.download_id);
+  // payload should have 
+  // podcast_id , cover_path , episode_name , file_path as file://
+  for(var i = 0; i<state.local_downloads.length;i++){
+    if(state.local_downloads[i][0]["id"] == payload["podcast_id"]){
+      var new_payload = {};
+      new_payload["cover_path"] = payload["cover_path"];
+      new_payload["episode_name"] = payload["episode_name"];
+      new_payload["file_path"] = payload["file_path"];
 
-    if(local_download.name === payload.name){
-      found = true;
-    }
-  })
-
-  if(found == false){
-    var gen_id = Math.floor((Math.random(1)*1000));
-    var result = current_local_downloads_ids.indexOf(gen_id);
-    if(result == -1){
-      payload["download_id"] = gen_id;
-      state.local_downloads.push(payload);
-
-     }
-
-    else{
-      while(true){
-        var gen_id = Math.floor((Math.random(1)*1000));
-        var result = current_local_downloads_ids.indexOf(gen_id);
-        if(result == -1){
-          payload["download_id"] = gen_id;
-          state.local_downloads.push(payload);
-          break;
-        }
-      }
+      state.local_downloads[i].push(new_payload);
     }
   }
+  
 },
 
 
