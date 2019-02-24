@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "author": "Sutton <suttonpage2000@gmail.com>",
   "description": "An electron-vue project",
   "license": null,
