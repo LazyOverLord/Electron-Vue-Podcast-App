@@ -76,12 +76,12 @@ const mutations = {
       audio_player_data:{},
       podcast_feed_data:[],
       search_results_cache:{search_term:"",results:[]},
-      pending_downloads:[],
       current_download:[],
       download_que:[],
       local_downloads:[],
 
       // clearing old unused variable
+      pending_downloads:[],
       config:[]
 
     }
