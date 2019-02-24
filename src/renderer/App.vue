@@ -50,9 +50,19 @@ import path from "path";
           var file_characters_check = ['/',":","*","?","<",">","|",'\\','#'];
           var episode_name = curent_download_item[0]["episode_title"];
           var podcast_name = curent_download_item[0]["podcast_name"];
+          var podcast_id = curent_download_item[0]["podcast_id"];
+          var podcast_cover = curent_download_item[0]["cover_path"];
+
+          var local_download_file_path = "file://" +path.resolve('./downloads/'+podcast_name+'/'+episode_name+'.mp3');
+
+          var local_download_payload = {};
+          local_download_payload["podcast_id"] =podcast_id;
+          local_download_payload["episode_name"] = episode_name;
+          local_download_payload["cover_path"] = podcast_cover;
+          local_download_payload["file_path"] = local_download_file_path;
 
           // Starts the next download in the que
-          this.$store.dispatch("update_Current_Download",false);
+          this.$store.dispatch("update_Current_Download",local_download_payload);
 
           file_characters_check.forEach((char)=>{
                 if(episode_name.includes(char) == true){

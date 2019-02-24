@@ -279,9 +279,7 @@ add_Local_Download_Item(state,payload){
 
 
 
-remove_All_Local_Download_Items(state){
-  state.local_downloads = [];
-},
+
 
 
 update_Download_Item_Download_Amount(state,payload){
@@ -399,14 +397,21 @@ const getters = {
   },
 
   get_Local_Downloads(state){
-    return state.local_downloads;
+    var final_data = [];
+    for(var i =0;i<state.local_downloads.length;i++){
+      if(state.local_downloads[i].length>1){
+        final_data.push(state.local_downloads[i]);
+      }
+    }
+
+    return final_data;
   }
  
 }
 
 const actions = {
 
-  update_Current_Download({commit,state},canceled_bol){
+  update_Current_Download({commit,state},local_download_payload){
 
     if(state.download_que.length!=0){
     // add code later to add current_download to finished download
@@ -415,6 +420,8 @@ const actions = {
     var download_url = new_download_item["url"];
 
     commit("remove_Current_Download_Item");
+
+    commit('add_Local_Download_Item',local_download_payload);
 
     commit('download_Que_Remove_Head');
 
@@ -427,6 +434,7 @@ const actions = {
     else{
       // add code later to add current_download to finished download
       commit("remove_Current_Download_Item");
+      commit('add_Local_Download_Item',local_download_payload);
     }
   },
 

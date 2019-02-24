@@ -37,12 +37,18 @@
 
         <div v-if="local_downloads.length!=0">
             <p> Finished Downloads </p>
-            <ul>
-                <li v-for="data in local_downloads">
-                    <p> {{data.podcast_name}}</p>
-                    <img :src="data.cover_path">
-                    <p> {{data.name}}</p>
-                    <button @click="play_Local_Download(data.name,data.file_path,data.cover_path)"> Play </button>
+            <ul v-for="podcast in local_downloads">
+                <li v-for="(items,index) in podcast">
+                    <div v-if="index == 0">
+                        <p> {{items.name}}</p>
+                    </div>
+
+                    <div v-else>
+                        <p> {{items.episode_name}}</p>
+                        <img :src="items.cover_path">
+                        <button @click="play_Local_Download(items.episode_name,items.file_path,items.cover_path)"> Play </button>
+
+                    </div>
                 </li>
             </ul>
 
@@ -78,10 +84,7 @@ export default {
 
     },
 
-    beforeRouteLeave:function(to,from,next){
-        this.$store.commit("remove_All_Local_Download_Items");
-        next();
-    },
+    
 
     methods:{
         Download_Listener:async function (){
@@ -176,6 +179,10 @@ export default {
     img{
         width:200px;
         height:200px;
+    }
+
+    ul{
+        list-style-type:none;
     }
 </style>
 

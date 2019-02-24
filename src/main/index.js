@@ -35,11 +35,16 @@ function createWindow () {
   /**
    * Initial window options
    */
+
+   // Disabled websecurity for dev because webpack does not allow you to access local files using file://
   mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
     width: 1000,
     show:false,
+    webPreferences:{
+      webSecurity:false
+    }
     
   })
 
