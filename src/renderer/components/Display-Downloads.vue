@@ -98,7 +98,7 @@ export default {
                 percent = Math.round(percent);
                 var current_percent = current_download[0]["amount_downloaded"];
 
-                if(percent!= current_download){
+                if(percent!= current_percent){
                     this.$store.commit('update_Current_Download_Download_Amount',percent);
                 }
 
