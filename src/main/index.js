@@ -2,20 +2,7 @@ import { app, BrowserWindow,ipcMain,net} from 'electron'
 import {writeFile,exists,mkdir,readdir,rmdir,unlink, readFile} from 'fs'
 
 import path from "path";
-import firebase from 'firebase';
 
-import Vue from 'vue';
-
-var config = {
-  apiKey: "***REMOVED***",
-  authDomain: "***REMOVED***",
-  databaseURL: "***REMOVED***",
-  projectId: "***REMOVED***",
-  storageBucket: "***REMOVED***.appspot.com",
-  messagingSenderId: "***REMOVED***"
-};
-
-var firebase_obj =firebase.initializeApp(config);
 
 
 
