@@ -4,6 +4,8 @@ import {writeFile,exists,mkdir,readdir,rmdir,unlink, readFile} from 'fs'
 import path from "path";
 import firebase from 'firebase';
 
+import Vue from 'vue';
+
 var config = {
   apiKey: "***REMOVED***",
   authDomain: "***REMOVED***",
@@ -13,7 +15,8 @@ var config = {
   messagingSenderId: "***REMOVED***"
 };
 
-firebase.initializeApp(config);
+var firebase_obj =firebase.initializeApp(config);
+
 
 
 
