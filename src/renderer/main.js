@@ -24,6 +24,7 @@ Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 Vue.prototype.$auth = firebase_obj.auth();
+Vue.prototype.$database = firebase_obj.database();
 
 
 
