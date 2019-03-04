@@ -1,5 +1,6 @@
 <template>
     <div>
+        <p> The current user is {{current_user}}</p>
         <p> Sign Up </p>
         <p> Enter your email <input v-model="user_name"> </p>
         <p> Enter your password <input v-model="password"> </p>
@@ -29,7 +30,8 @@ export default {
             err_message:"",
             user_name_login:"",
             password_login:"",
-            login_error:""
+            login_error:"",
+            current_user:"",
         }
     },
 
@@ -55,11 +57,15 @@ export default {
         login_in_user:function(){
             this.$auth.signInWithEmailAndPassword(this.user_name_login,this.password_login).then((result)=>{
                 console.log(result);
+                console.log(result['user']);
+                
             })
 
             .catch((err)=>{
                 console.log(err);
             })
+
+            
         }
 
 
