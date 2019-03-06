@@ -119,6 +119,7 @@ function createWindow () {
         console.log('Download is interrupted but can be resumed')
 
       } else if (state === 'progressing') {
+
         if (item.isPaused()) {
           console.log("The download was paused");
         } else {
@@ -128,10 +129,10 @@ function createWindow () {
           //download_page_update(item.getFilename(),amount_downloaded);
           
           // sends to download_page
-          
-          
         }
+
       }
+
     })
 
     
@@ -147,7 +148,7 @@ function createWindow () {
         console.log(`Download failed: ${state}`)
       }
     })
-
+    
     ipcMain.on("async_download_cancel",(event,download_item)=>{
         // global event going to app.vue just to be safe
         item.pause();
@@ -174,18 +175,6 @@ function createWindow () {
     })
 
     
-
-    
-
-    
-
-    
-
-  
-  
-
-    
-  
   });
     
   
