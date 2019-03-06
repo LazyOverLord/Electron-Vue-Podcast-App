@@ -26,6 +26,8 @@
                     <p> The state of the download is {{data.download_state}}</p>
                     <p> The size of the files is {{data.file_size}}</p>
                     <p> Download percent is  {{data.amount_downloaded}}</p>
+                    <progress max="100" :value="data.amount_downloaded">{{data.amount_downloaded}}</progress>
+                    <p> ----------------------------------</p>
                     <button @click="resume_download(data)"> Play</button>
                     <button @click="pause_download(data)"> Pause</button>
                     <button @click="cancel_download(data)"> Cancel Download </button>
