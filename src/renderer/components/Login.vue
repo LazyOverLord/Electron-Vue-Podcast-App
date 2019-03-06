@@ -1,5 +1,6 @@
 <template>
     <div>
+        <p> <router-link :to='{path:"/",exact:true}' >Go Home </router-link></p>
         <p> The current user is {{current_user}}</p>
         <p> Sign Up </p>
         <p> Enter your email <input v-model="user_name"> </p>
