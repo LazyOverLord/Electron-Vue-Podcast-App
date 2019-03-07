@@ -428,6 +428,7 @@ const actions = {
     commit('update_Current_Download_Item',new_download_item);
 
     current_window.webContents.downloadURL(download_url);
+    
 
     }
 

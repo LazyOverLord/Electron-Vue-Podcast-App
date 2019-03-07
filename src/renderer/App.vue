@@ -8,9 +8,11 @@
 </template>
 
 <script>
-import {ipcRenderer, ipcMain} from "electron";
+import {ipcRenderer, ipcMain,remote} from "electron";
 import {rename,readdir, readdirSync,exists} from 'fs';
 import path from "path";
+
+var current_webcontents = remote.getCurrentWebContents();
 
 
 
@@ -62,7 +64,22 @@ import path from "path";
           local_download_payload["file_path"] = local_download_file_path;
 
           // Starts the next download in the que
-          this.$store.dispatch("update_Current_Download",local_download_payload);
+          //this.$store.dispatch("update_Current_Download",local_download_payload);
+
+          var new_download_item = this.$store.getters.get_Download_Que;
+          var new_download_url = new_download_item[0]["url"];
+
+          this.$store.commit("remove_Current_Download_Item");
+
+          this.$store.commit('add_Local_Download_Item',local_download_payload);
+
+          this.$store.commit('download_Que_Remove_Head');
+
+          this.$store.commit('update_Current_Download_Item',new_download_item[0]);
+
+         
+          remote.getCurrentWebContents().downloadURL(new_download_url);
+
 
           file_characters_check.forEach((char)=>{
                 if(episode_name.includes(char) == true){

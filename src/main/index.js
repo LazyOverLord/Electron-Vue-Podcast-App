@@ -162,21 +162,32 @@ function createWindow () {
             item.pause();
             event.sender.send("async_download_state_updated","paused");
           }
+        
+      
+          
+        
     })
 
     ipcMain.on("async_download_resume",(event,download_item)=>{
+      console.log(item.getFilename());
+      var result = download_item["url_stub"] === item.getFilename();
+      console.log(result);
           if(item.isPaused()==true){
-              item.resume();
-            event.sender.send("async_download_state_updated","downloading");
-        }
-      
-    })
+            item.resume();
+          event.sender.send("async_download_state_updated","downloading");
+      }
+        
 
-    
+      
+
+    });
+      
   });
     
   
- 
+    
+  
+
    
 
   
@@ -194,9 +205,9 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+
 }
-
-
 
 
 app.on('ready', createWindow)
