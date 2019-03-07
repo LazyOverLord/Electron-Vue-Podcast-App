@@ -158,7 +158,6 @@ function createWindow () {
     })
 
     ipcMain.on("async_download_pause",(event,download_item)=>{
-      if(download_item["url_stub"]===item.getFilename())
           if(item.isPaused()== false){
             item.pause();
             event.sender.send("async_download_state_updated","paused");
@@ -166,12 +165,11 @@ function createWindow () {
     })
 
     ipcMain.on("async_download_resume",(event,download_item)=>{
-      if(download_item["url_stub"] ===item.getFilename()){
           if(item.isPaused()==true){
               item.resume();
             event.sender.send("async_download_state_updated","downloading");
         }
-      }
+      
     })
 
     
