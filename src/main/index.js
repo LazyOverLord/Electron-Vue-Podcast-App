@@ -108,7 +108,7 @@ function createWindow () {
 
       })
 
-      webContents.send("async_download_setup",file_size,url_stub);
+      webContents.send("async_download_setup",file_size,url_stub,item.getFilename());
       
       
     })
@@ -169,16 +169,14 @@ function createWindow () {
     })
 
     ipcMain.on("async_download_resume",(event,download_item)=>{
-      console.log(item.getFilename());
-      var result = download_item["url_stub"] === item.getFilename();
-      console.log(result);
+      if(download_item["file_name"]=== item.getFilename()){
           if(item.isPaused()==true){
             item.resume();
           event.sender.send("async_download_state_updated","downloading");
       }
         
+    }
 
-      
 
     });
       

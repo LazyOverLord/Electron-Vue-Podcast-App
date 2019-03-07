@@ -336,6 +336,10 @@ set_Current_Download_Url_Stub(state,url_stub){
   state.current_download[0]["url_stub"] = url_stub;
 },
 
+set_Download_File_Name(state,file_name){
+  state.current_download[0]["file_name"] = file_name;
+},
+
 set_Current_Download_File_Size(state,file_size){
   state.current_download[0]["file_size"] = file_size;
 },
