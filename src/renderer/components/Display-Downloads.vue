@@ -93,6 +93,7 @@ export default {
             ipcRenderer.on("async_download_page_update_download",(event,file_name,amount_downloaded)=>{
 
                 var current_download = this.$store.getters.get_Current_Download;
+                if(current_download!=undefined){
 
                 var file_size = current_download[0]["file_size"];
 
@@ -103,8 +104,10 @@ export default {
                 if(percent!= current_percent){
                     this.$store.commit('update_Current_Download_Download_Amount',percent);
                 }
+            
+                }
 
-                
+               
             });
 
             ipcRenderer.on("async_download_add_finish_item",(event,url_name)=>{

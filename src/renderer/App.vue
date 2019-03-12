@@ -64,10 +64,13 @@ var current_webcontents = remote.getCurrentWebContents();
           local_download_payload["cover_path"] = podcast_cover;
           local_download_payload["file_path"] = local_download_file_path;
 
+          this.$store.dispatch("update_Current_Download",local_download_payload);
+
           // Starts the next download in the que
           //this.$store.dispatch("update_Current_Download",local_download_payload);
-
+          /*
           var new_download_item = this.$store.getters.get_Download_Que;
+          console.log(new_download_item);
           if(new_download_item.length!=0){
           var new_download_url = new_download_item[0]["url"];
 
@@ -76,6 +79,8 @@ var current_webcontents = remote.getCurrentWebContents();
           this.$store.commit('add_Local_Download_Item',local_download_payload);
 
           this.$store.commit('download_Que_Remove_Head');
+
+          
 
           this.$store.commit('update_Current_Download_Item',new_download_item[0]);
 
@@ -87,7 +92,7 @@ var current_webcontents = remote.getCurrentWebContents();
           else{
             this.$store.commit("remove_Current_Download_Item");
             this.$store.commit('add_Local_Download_Item',local_download_payload);
-          }
+          }*/
 
           file_characters_check.forEach((char)=>{
                 if(episode_name.includes(char) == true){
