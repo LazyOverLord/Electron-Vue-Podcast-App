@@ -43,12 +43,6 @@ export default new Router({
       path:"/downloads",
       name:"downloads",
       component:require("@/components/Display-Downloads").default
-    },
-
-    {
-      path:"/login",
-      name:"Login",
-      component:require('@/components/Login').default
     }
 
     
