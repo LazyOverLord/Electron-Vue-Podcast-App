@@ -5,7 +5,7 @@
 
         <router-link to="/downloads"> Go to downloads </router-link>
 
-        <router-link to="/login"> Log In </router-link>
+        
             
         <div v-if="config.length == 0">
             <p> You have no podcasts added. Click search to search for podcasts to add </p>
