@@ -6,7 +6,18 @@ import store from './store'
 import firebase from 'firebase';
 import * as firebaseui from 'firebaseui'
 
+<<<<<<< HEAD
 
+=======
+var config = {
+  apiKey: "***REMOVED***",
+  authDomain: "***REMOVED***",
+  databaseURL: "***REMOVED***",
+  projectId: "***REMOVED***",
+  storageBucket: "***REMOVED***.appspot.com",
+  messagingSenderId: "***REMOVED***"
+};
+>>>>>>> 553963992e9a710ca8ebf7bf720d09f45cece488
 
 
 
