@@ -10,9 +10,7 @@
         </p>
 
        
-        <p> 
-            There are {{downloads.length}} Downloads and {{pending_downloads.length}} Pending Downloads
-        </p>
+        
 
     </div>
 
@@ -32,10 +30,7 @@ export default {
     props:["podcast_data"],
 
     computed:{
-        ...mapGetters({
-            downloads:'get_Download_Items',
-            pending_downloads:'get_Pending_Downloads'
-        })
+        
     }
 
     
