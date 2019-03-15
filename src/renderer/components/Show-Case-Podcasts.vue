@@ -3,7 +3,7 @@
     <div>
         
 
-        <router-link to="/downloads"> Go to downloads </router-link>
+        
 
         
             

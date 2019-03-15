@@ -39,11 +39,7 @@ export default new Router({
       component:require('@/components/Manage-Feeds').default
     },
 
-    {
-      path:"/downloads",
-      name:"downloads",
-      component:require("@/components/Display-Downloads").default
-    }
+    
 
     
   ]
