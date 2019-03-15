@@ -20,11 +20,7 @@
                         <img :src="podcast_data.cover_path"/>
                         <p>{{data.title}}</p>
                         
-                        <div v-if="search_podcast == false">
-                           <!-- <a :href="data.url" @click="create_Download_Item(data.url,data.title)" download> Download </a>-->
-                           <button  @click="create_Download_Item(data.url,data.title)"> Download </button>
-                            
-                        </div> 
+                        
                         
                         
                     
@@ -103,82 +99,7 @@ export default {
             this.$emit('play_episode',payload);
         },
 
-        create_Download_Item:function(url,episode_title){
-
-           //current_window.webContents.downloadURL(url);
-
-
-            var file_characters_check = ['/',":","*","?","<",">","|",'\\',"#"];
-
-            var podcast_name = this.podcast_data.name;
-            var cleaned_episode_title = episode_title;
-            file_characters_check.forEach((char)=>{
-                if(podcast_name.includes(char) == true){
-                    podcast_name = podcast_name.replace(char,"");
-                }
-
-                if(cleaned_episode_title.includes(char)==true){
-                    cleaned_episode_title = cleaned_episode_title.replace(char,"");
-                }
-            })
-
-            ipcRenderer.send('async_create_download_podcast_folder',podcast_name);
-
-            
-
-            var url_split = url.split('/');
-            var file_name = url_split[url_split.length -1];
-            if(file_name.includes("?") == true){
-                var final_split = file_name.split("?");
-                file_name = final_split[0];
-            }
-
-            var download_payload = {};
-            download_payload["podcast_name"] = podcast_name;
-            download_payload["podcast_id"] = this.podcast_data.id;
-            download_payload["cover_path"] = this.podcast_data.cover_path;
-            download_payload["episode_title"] = cleaned_episode_title;
-            download_payload["url_stub"] = "";
-            download_payload["url"] = url;
-            download_payload["amount_downloaded"] = 0;
-            download_payload["file_size"] = 0;
-            download_payload["download_state"] = "pending";
-            
-            var current_que = this.$store.getters.get_Download_Que;
-            if(current_que.length ==0){
-                var current_download = this.$store.getters.get_Current_Download;
-                if(current_download.length == 0){
-                    current_window.webContents.downloadURL(url);
-                    this.$store.commit('update_Current_Download_Item',download_payload);
-                }
-                else{
-                    this.$store.commit('add_Download_Item_To_Que',download_payload);
-                }
-            }
-
-            else{
-               this.$store.commit('add_Download_Item_To_Que',download_payload);
-            }
-            
-
-        
-
-        },
-
-        
-
-        
-
-        
-
-        
-
-
-        
-
-        
-        
-
+    
     },
 
     
