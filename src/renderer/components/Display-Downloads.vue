@@ -3,13 +3,13 @@
     <div>
         <router-link to="/"> Go Home </router-link>
 
-        <div v-if="pending_downloads.length!=0">
-            <p> Pending Downloads </p>
+        <div v-if="download_que.length!=0">
+            <p> Download Que </p>
             <ul>
-                <li v-for="data in pending_downloads">
+                <li v-for="data in download_que">
                     <p> {{data.podcast_name}}</p>
                     <p> {{data.file_name}}</p>
-                    <img :src="data.podcast_cover">
+                    <img :src="data.cover_path">
                 </li>
 
             </ul>
@@ -21,12 +21,17 @@
             <p> Downloads </p>
             <ul>
                 <li v-for="data in downloads">
-                    <p> {{data.title}}</p>
-                    <img :src="data.podcast_cover">
+                    <p> {{data.episode_title}}</p>
+                    <img :src="data.cover_path">
                     <p> The state of the download is {{data.download_state}}</p>
-                    <p> The size of the download is {{data.download_size}} mb</p>
+                    <p> The size of the files is {{data.file_size}}</p>
                     <p> Download percent is  {{data.amount_downloaded}}</p>
+                    <progress max="100" :value="data.amount_downloaded">{{data.amount_downloaded}}</progress>
+                    <p> ----------------------------------</p>
+                    <button @click="resume_download(data)"> Play</button>
+                    <button @click="pause_download(data)"> Pause</button>
                     <button @click="cancel_download(data)"> Cancel Download </button>
+                
 
                 </li>
             </ul>
@@ -34,12 +39,18 @@
 
         <div v-if="local_downloads.length!=0">
             <p> Finished Downloads </p>
-            <ul>
-                <li v-for="data in local_downloads">
-                    <p> {{data.podcast_name}}</p>
-                    <img :src="data.cover_path">
-                    <p> {{data.name}}</p>
-                    <button @click="play_Local_Download(data.name,data.file_path,data.cover_path)"> Play </button>
+            <ul v-for="podcast in local_downloads">
+                <li v-for="(items,index) in podcast">
+                    <div v-if="index == 0">
+                        <p> {{items.name}}</p>
+                    </div>
+
+                    <div v-else>
+                        <p> {{items.episode_name}}</p>
+                        <img :src="items.cover_path">
+                        <button @click="play_Local_Download(items.episode_name,items.file_path,items.cover_path)"> Play </button>
+
+                    </div>
                 </li>
             </ul>
 
@@ -67,39 +78,36 @@ export default {
 
     computed:{
         ...mapGetters({
-            downloads:"get_Download_Items",
-            pending_downloads:"get_Pending_Downloads",
+            downloads:"get_Current_Download",
+            download_que:"get_Download_Que",
             local_downloads:"get_Local_Downloads",
             
     })
 
     },
 
-    beforeRouteLeave:function(to,from,next){
-        this.$store.commit("remove_All_Local_Download_Items");
-        next();
-    },
+    
 
     methods:{
         Download_Listener:async function (){
             ipcRenderer.on("async_download_page_update_download",(event,file_name,amount_downloaded)=>{
-                
-                this.downloads.forEach((download)=>{
-                    if(download.url_title == file_name){
-                        var percent = amount_downloaded / download.download_size * 100;
-                        percent = Math.round(percent);
-                        var current_percent = download.amount_downloaded;
-                        
-                        if(percent!= current_percent){
-                            var payload = {};
-                            payload["download_id"] = download.download_id;
-                            payload["amount_downloaded"] = percent;
-                            this.$store.commit('update_Download_Item_Download_Amount',payload);
-                        }
 
-                        
-                    }
-                })
+                var current_download = this.$store.getters.get_Current_Download;
+                if(current_download!=undefined){
+
+                var file_size = current_download[0]["file_size"];
+
+                var percent = amount_downloaded / file_size * 100;
+                percent = Math.round(percent);
+                var current_percent = current_download[0]["amount_downloaded"];
+
+                if(percent!= current_percent){
+                    this.$store.commit('update_Current_Download_Download_Amount',percent);
+                }
+            
+                }
+
+               
             });
 
             ipcRenderer.on("async_download_add_finish_item",(event,url_name)=>{
@@ -141,6 +149,15 @@ export default {
             payload["cover_path"] = cover_path;
             
             this.$store.commit("set_Audio_Data_Manual",payload);
+        },
+
+        pause_download:function(download_item){
+            ipcRenderer.send("async_download_pause",download_item);
+
+        },
+
+        resume_download:function(download_item){
+            ipcRenderer.send('async_download_resume',download_item);
         }
 
         
@@ -167,6 +184,10 @@ export default {
     img{
         width:200px;
         height:200px;
+    }
+
+    ul{
+        list-style-type:none;
     }
 </style>
 

@@ -8,8 +8,12 @@
 </template>
 
 <script>
-import {ipcRenderer, ipcMain} from "electron";
+import {ipcRenderer, ipcMain,remote} from "electron";
 import {rename,readdir, readdirSync,exists} from 'fs';
+import path from "path";
+
+var current_webcontents = remote.getCurrentWebContents();
+
 
 
 
@@ -25,75 +29,94 @@ import {rename,readdir, readdirSync,exists} from 'fs';
 
     methods:{
       main_event_listener: async function(){
-        ipcRenderer.on('async_download_setup',(event,url_name,url_chain,file_size)=>{
-
-          
-
-          console.log("Called download");
-          var pending_downloads = this.$store.getters.get_Pending_Downloads;
-          var matched = false;
-          pending_downloads.forEach((download,index)=>{
-            if(download.url_name === url_name){
-              matched = true;
-              this.add_Download_Item(download,url_name,file_size);
-            }
-          })
-          
-          if(matched == false){
-            
-            pending_downloads.forEach((download)=>{
-              url_chain.forEach((chain)=>{
-                if(download.url_name == chain){
-                  this.add_Download_Item(download,url_name,file_size);
-                  
-                }
-
-
-              })
-
-            })
-            //event.sender.send("async_download_setup_err");
-          }
-          
-          
-
-          
+        ipcRenderer.on('async_download_setup',(event,file_size,url_chain,file_name)=>{
+          this.$store.commit("set_Current_Download_Url_Stub",url_chain);
+          this.$store.commit("set_Current_Download_File_Size",file_size);
+          this.$store.commit("update_Current_Download_State","downloading");
+          this.$store.commit('set_Download_File_Name',file_name);
         });
+
+        ipcRenderer.on("async_download_state_updated",(event,new_state)=>{
+          this.$store.commit('update_Current_Download_State',new_state);
+        })
+
+        ipcRenderer.on("async_current_download_canceled",(event)=>{
+          this.$store.dispatch("update_Current_Download",true);
+        })
 
        
 
         ipcRenderer.on("async_download_finalize_download",(event,url_title)=>{
-          var download_items = this.$store.getters.get_Download_Items;
-          download_items.forEach((download)=>{
-            if(download.url_title == url_title){
-              
-              var file_characters_check = ['/',":","*","?","<",">","|",'\\','#'];
-              var episode_name = download.title;
 
-              file_characters_check.forEach((char)=>{
+          var curent_download_item = this.$store.getters.get_Current_Download;
+
+          var file_characters_check = ['/',":","*","?","<",">","|",'\\','#'];
+          var episode_name = curent_download_item[0]["episode_title"];
+          var podcast_name = curent_download_item[0]["podcast_name"];
+          var podcast_id = curent_download_item[0]["podcast_id"];
+          var podcast_cover = curent_download_item[0]["cover_path"];
+
+          var local_download_file_path = "file://" +path.resolve('./downloads/'+podcast_name+'/'+episode_name+'.mp3');
+
+          var local_download_payload = {};
+          local_download_payload["podcast_id"] =podcast_id;
+          local_download_payload["episode_name"] = episode_name;
+          local_download_payload["cover_path"] = podcast_cover;
+          local_download_payload["file_path"] = local_download_file_path;
+
+          this.$store.dispatch("update_Current_Download",local_download_payload);
+
+          // Starts the next download in the que
+          //this.$store.dispatch("update_Current_Download",local_download_payload);
+          /*
+          var new_download_item = this.$store.getters.get_Download_Que;
+          console.log(new_download_item);
+          if(new_download_item.length!=0){
+          var new_download_url = new_download_item[0]["url"];
+
+          this.$store.commit("remove_Current_Download_Item");
+
+          this.$store.commit('add_Local_Download_Item',local_download_payload);
+
+          this.$store.commit('download_Que_Remove_Head');
+
+          
+
+          this.$store.commit('update_Current_Download_Item',new_download_item[0]);
+
+         
+          remote.getCurrentWebContents().downloadURL(new_download_url);
+          
+          }
+
+          else{
+            this.$store.commit("remove_Current_Download_Item");
+            this.$store.commit('add_Local_Download_Item',local_download_payload);
+          }*/
+
+          file_characters_check.forEach((char)=>{
                 if(episode_name.includes(char) == true){
                   episode_name = episode_name.replace(char,"");
                 }
               })
+        
 
-              var temp = "@/../downloads/temp/"+download.url_title;
-              var final_download_path = "@/../downloads/"+download.podcast_name+"/"+episode_name+".mp3";
-              rename(temp,final_download_path,(err)=>{
+          var temp = "@/../downloads/temp/"+url_title;
+          var final_download_path = "@/../downloads/"+podcast_name+"/"+episode_name+".mp3";
+
+          rename(temp,final_download_path,(err)=>{
                 if(err){
                   console.log(err);
                 }
               });
-            }
-          })
+
+
+          
+            
+          
         });
 
-        ipcRenderer.on("async_download_update_download_amount",(event,download_id,amount_downloaded)=>{
-          var payload ={};
-          payload["download_id"] = download_id;
-          payload["amount_downloaded"] = amount_downloaded;
-          
-          this.$store.commit('update_Download_Item_Download_Amount',payload);
-        });
+        
 
         ipcRenderer.on("async_download_change_state",(event,download_id,new_state)=>{
           var payload = {};
@@ -116,6 +139,8 @@ import {rename,readdir, readdirSync,exists} from 'fs';
           payload["url"] = url_data;
           this.$store.commit("set_Audio_Data_Manual",payload);
         })
+
+        
 
         
 
@@ -226,7 +251,18 @@ import {rename,readdir, readdirSync,exists} from 'fs';
        
     });
 
-    }
+    },
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
 
     },
 
@@ -241,6 +277,7 @@ import {rename,readdir, readdirSync,exists} from 'fs';
       this.$store.commit('reset_State');
       this.$store.commit('set_Default_Feed_State');
       
+      
 
       
       
@@ -250,6 +287,15 @@ import {rename,readdir, readdirSync,exists} from 'fs';
       this.main_event_listener();
       // Used for testing
       //this.get_Podcast_Downloads_All("@/../downloads");
+      var local_path =path.resolve('./downloads/TechStuff/AI at IBM Think 2019.mp3');
+      var payload = {};
+      payload["title"] = "Techstuff";
+      payload["cover_path"] = "";
+      payload["url"] ="file://"+local_path;
+      this.$store.commit("set_Audio_Data_Manual",payload);
+
+
+      
      
     }
 

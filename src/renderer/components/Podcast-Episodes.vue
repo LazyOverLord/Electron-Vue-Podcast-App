@@ -105,16 +105,20 @@ export default {
 
         create_Download_Item:function(url,episode_title){
 
-            current_window.webContents.downloadURL(url);
+           //current_window.webContents.downloadURL(url);
 
 
             var file_characters_check = ['/',":","*","?","<",">","|",'\\',"#"];
 
             var podcast_name = this.podcast_data.name;
-
+            var cleaned_episode_title = episode_title;
             file_characters_check.forEach((char)=>{
                 if(podcast_name.includes(char) == true){
                     podcast_name = podcast_name.replace(char,"");
+                }
+
+                if(cleaned_episode_title.includes(char)==true){
+                    cleaned_episode_title = cleaned_episode_title.replace(char,"");
                 }
             })
 
@@ -128,72 +132,36 @@ export default {
                 var final_split = file_name.split("?");
                 file_name = final_split[0];
             }
-            
-            var pending_downloads = this.$store.getters.get_Pending_Downloads;
-            var exists = false;
-            if(pending_downloads.length!=0){
-                pending_downloads.forEach((download)=>{
-                if(download.url_name !=file_name){
-                    var payload = {};
-                    payload["id"] = this.$route.params.id;
-                    payload["podcast_name"] = podcast_name;
-                    payload["file_name"] = episode_title;
-                    payload["url_name"] = file_name;
-                    payload["podcast_cover"] = this.podcast_data.cover_path;
-                    
-                    
 
-                    this.$store.commit('add_Pending_Download_Item',payload);
-                    
+            var download_payload = {};
+            download_payload["podcast_name"] = podcast_name;
+            download_payload["podcast_id"] = this.podcast_data.id;
+            download_payload["cover_path"] = this.podcast_data.cover_path;
+            download_payload["episode_title"] = cleaned_episode_title;
+            download_payload["url_stub"] = "";
+            download_payload["url"] = url;
+            download_payload["amount_downloaded"] = 0;
+            download_payload["file_size"] = 0;
+            download_payload["download_state"] = "pending";
+            
+            var current_que = this.$store.getters.get_Download_Que;
+            if(current_que.length ==0){
+                var current_download = this.$store.getters.get_Current_Download;
+                if(current_download.length == 0){
+                    current_window.webContents.downloadURL(url);
+                    this.$store.commit('update_Current_Download_Item',download_payload);
                 }
-
-                if(download.url_name === file_name){
-                    exists = true;
+                else{
+                    this.$store.commit('add_Download_Item_To_Que',download_payload);
                 }
-            })
-
-            if(exists == true){
-                console.log("the download item already exists");
             }
-            
-            
 
-            
-            
-
-            
-        }
-
-        else{
-            var download_items = this.$store.getters.get_Download_Items;
-            if(download_items.length == 0){
-                var payload = {};
-                payload["id"] = this.$route.params.id;
-                payload["podcast_name"] = podcast_name;
-                payload["file_name"] = episode_title;
-                payload["url_name"] = file_name;   
-                payload["podcast_cover"] = this.podcast_data.cover_path;
-                this.$store.commit('add_Pending_Download_Item',payload);
-            }
             else{
-                var found = false;
-                download_items.forEach((download)=>{
-                    if(download.title === episode_title){
-                        found = true;
-                    }
-                })
-
-                if(found == false){
-                    var payload = {};
-                    payload["id"] = this.$route.params.id;
-                    payload["podcast_name"] = podcast_name;
-                    payload["file_name"] = episode_title;
-                    payload["url_name"] = file_name;   
-                    payload["podcast_cover"] = this.podcast_data.cover_path;
-                    this.$store.commit('add_Pending_Download_Item',payload);
-                }
+               this.$store.commit('add_Download_Item_To_Que',download_payload);
             }
-        }
+            
+
+        
 
         },
 

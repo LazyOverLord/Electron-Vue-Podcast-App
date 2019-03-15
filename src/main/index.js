@@ -1,10 +1,17 @@
-import { app, BrowserWindow,ipcMain,net, session,webContents, WebContents} from 'electron'
-import {writeFile,exists,mkdir,readdir,rmdir,unlink,existsSync, readFile} from 'fs'
-import dataurl from "dataurl"
+import { app, BrowserWindow,ipcMain,net} from 'electron'
+import {writeFile,exists,mkdir,readdir,rmdir,unlink, readFile} from 'fs'
+
 import path from "path";
 
 
+
+
+
+
+
 const download_path = "@/../downloads";
+
+
 
 // Remove memory leak error
 process.setMaxListeners(0);
@@ -27,18 +34,27 @@ function createWindow () {
   /**
    * Initial window options
    */
+
+   // Disabled websecurity for dev because webpack does not allow you to access local files using file://
   mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
     width: 1000,
-    show:false
+    show:false,
+    webPreferences:{
+      webSecurity:false
+    }
+    
   })
 
   
-  
+
+ 
   
 
   mainWindow.loadURL(winURL);
+
+ 
   
   mainWindow.webContents.session.on('will-download', (event, item, webContents) => {
 
@@ -83,8 +99,16 @@ function createWindow () {
 
       url_names = [...new Set(url_names)];
       
-     
-      webContents.send("async_download_setup",url_name,url_names,file_size);
+      var url_stub = "";
+
+      url_names.forEach((name)=>{
+        if(name === item.getFilename()){
+          url_stub = name;
+        }
+
+      })
+
+      webContents.send("async_download_setup",file_size,url_stub,item.getFilename());
       
       
     })
@@ -95,6 +119,7 @@ function createWindow () {
         console.log('Download is interrupted but can be resumed')
 
       } else if (state === 'progressing') {
+
         if (item.isPaused()) {
           console.log("The download was paused");
         } else {
@@ -104,10 +129,10 @@ function createWindow () {
           //download_page_update(item.getFilename(),amount_downloaded);
           
           // sends to download_page
-          
-          
         }
+
       }
+
     })
 
     
@@ -118,37 +143,54 @@ function createWindow () {
         //finalize_download(item.getFilename());
         
         webContents.send('async_download_finalize_download',item.getFilename());
-        webContents.send("async_download_add_finish_item",item.getFilename());
+        //webContents.send("async_download_add_finish_item",item.getFilename());
       } else {
         console.log(`Download failed: ${state}`)
       }
     })
-
+    
     ipcMain.on("async_download_cancel",(event,download_item)=>{
-      if(download_item.url_title === item.getFilename()){
-        event.sender.send("async_download_cancel_ok",download_item);
-        item.cancel();
-      }
+        // global event going to app.vue just to be safe
+        item.pause();
+        event.sender.send('async_current_download_canceled');
+        
+      
     })
 
-    
+    ipcMain.on("async_download_pause",(event,download_item)=>{
+          if(item.isPaused()== false){
+            item.pause();
+            event.sender.send("async_download_state_updated","paused");
+          }
+        
+      
+          
+        
+    })
 
-    
+    ipcMain.on("async_download_resume",(event,download_item)=>{
+      if(download_item["file_name"]=== item.getFilename()){
+          if(item.isPaused()==true){
+            item.resume();
+          event.sender.send("async_download_state_updated","downloading");
+      }
+        
+    }
 
-    
 
-    
-
-  
-  
-
-    
-  
+    });
+      
   });
     
   
     
-    
+  
+
+   
+
+  
+
+  
    
   mainWindow.on('ready-to-show', function() { 
     mainWindow.show(); 
@@ -161,9 +203,9 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+
 }
-
-
 
 
 app.on('ready', createWindow)
@@ -180,6 +222,8 @@ app.on('activate', () => {
   }
 
 })
+
+
 
 
 
@@ -418,20 +462,5 @@ ipcMain.on("async_data_url_test",(event,file_path)=>{
 
 
 
-function download_Setup(url_name,url_names,file_size){
-  
-  mainWindow.webContents.send("async_download_setup",url_name,url_names,file_size);
-  
-}
 
-function download_page_update(file_name,amount_downloaded){
-  
-  mainWindow.webContents.send("async_download_page_update_download",file_name,amount_downloaded);
-}
-
-function finalize_download(file_name){
-  
-  mainWindow.webContents.send('async_download_finalize_download',file_name);
-  mainWindow.webContents.send("async_download_add_finish_item",file_name);
-}
 
