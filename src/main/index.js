@@ -41,9 +41,7 @@ function createWindow () {
     useContentSize: true,
     width: 1000,
     show:false,
-    webPreferences:{
-      webSecurity:false
-    }
+    
     
   })
 
