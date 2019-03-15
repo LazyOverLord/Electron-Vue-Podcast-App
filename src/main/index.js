@@ -108,7 +108,7 @@ function createWindow () {
 
       })
 
-      webContents.send("async_download_setup",file_size,url_stub,item.getFilename());
+      
       
       
     })
@@ -125,7 +125,7 @@ function createWindow () {
         } else {
           var amount_downloaded = item.getReceivedBytes() / 1000000;
           amount_downloaded = amount_downloaded.toFixed(2);
-          webContents.send("async_download_page_update_download",item.getFilename(),amount_downloaded);
+          
           //download_page_update(item.getFilename(),amount_downloaded);
           
           // sends to download_page
@@ -142,7 +142,7 @@ function createWindow () {
         console.log('Download successfully')
         //finalize_download(item.getFilename());
         
-        webContents.send('async_download_finalize_download',item.getFilename());
+        
         //webContents.send("async_download_add_finish_item",item.getFilename());
       } else {
         console.log(`Download failed: ${state}`)

@@ -29,12 +29,7 @@ var current_webcontents = remote.getCurrentWebContents();
 
     methods:{
       main_event_listener: async function(){
-        ipcRenderer.on('async_download_setup',(event,file_size,url_chain,file_name)=>{
-          this.$store.commit("set_Current_Download_Url_Stub",url_chain);
-          this.$store.commit("set_Current_Download_File_Size",file_size);
-          this.$store.commit("update_Current_Download_State","downloading");
-          this.$store.commit('set_Download_File_Name',file_name);
-        });
+        
 
         ipcRenderer.on("async_download_state_updated",(event,new_state)=>{
           this.$store.commit('update_Current_Download_State',new_state);
@@ -46,75 +41,7 @@ var current_webcontents = remote.getCurrentWebContents();
 
        
 
-        ipcRenderer.on("async_download_finalize_download",(event,url_title)=>{
-
-          var curent_download_item = this.$store.getters.get_Current_Download;
-
-          var file_characters_check = ['/',":","*","?","<",">","|",'\\','#'];
-          var episode_name = curent_download_item[0]["episode_title"];
-          var podcast_name = curent_download_item[0]["podcast_name"];
-          var podcast_id = curent_download_item[0]["podcast_id"];
-          var podcast_cover = curent_download_item[0]["cover_path"];
-
-          var local_download_file_path = "file://" +path.resolve('./downloads/'+podcast_name+'/'+episode_name+'.mp3');
-
-          var local_download_payload = {};
-          local_download_payload["podcast_id"] =podcast_id;
-          local_download_payload["episode_name"] = episode_name;
-          local_download_payload["cover_path"] = podcast_cover;
-          local_download_payload["file_path"] = local_download_file_path;
-
-          this.$store.dispatch("update_Current_Download",local_download_payload);
-
-          // Starts the next download in the que
-          //this.$store.dispatch("update_Current_Download",local_download_payload);
-          /*
-          var new_download_item = this.$store.getters.get_Download_Que;
-          console.log(new_download_item);
-          if(new_download_item.length!=0){
-          var new_download_url = new_download_item[0]["url"];
-
-          this.$store.commit("remove_Current_Download_Item");
-
-          this.$store.commit('add_Local_Download_Item',local_download_payload);
-
-          this.$store.commit('download_Que_Remove_Head');
-
-          
-
-          this.$store.commit('update_Current_Download_Item',new_download_item[0]);
-
-         
-          remote.getCurrentWebContents().downloadURL(new_download_url);
-          
-          }
-
-          else{
-            this.$store.commit("remove_Current_Download_Item");
-            this.$store.commit('add_Local_Download_Item',local_download_payload);
-          }*/
-
-          file_characters_check.forEach((char)=>{
-                if(episode_name.includes(char) == true){
-                  episode_name = episode_name.replace(char,"");
-                }
-              })
         
-
-          var temp = "@/../downloads/temp/"+url_title;
-          var final_download_path = "@/../downloads/"+podcast_name+"/"+episode_name+".mp3";
-
-          rename(temp,final_download_path,(err)=>{
-                if(err){
-                  console.log(err);
-                }
-              });
-
-
-          
-            
-          
-        });
 
         
 
