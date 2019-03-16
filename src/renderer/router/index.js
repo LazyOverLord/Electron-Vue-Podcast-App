@@ -39,6 +39,12 @@ export default new Router({
       component:require('@/components/Manage-Feeds').default
     },
 
+    {
+      path:"/test",
+      name:"test",
+      component:require('@/components/Material-Test').default
+    }
+
     
 
     

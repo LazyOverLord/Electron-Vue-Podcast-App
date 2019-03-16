@@ -3,7 +3,7 @@
     <div>
         
 
-        
+        <router-link to="/test"> Go to test compoent </router-link>
 
         
             
