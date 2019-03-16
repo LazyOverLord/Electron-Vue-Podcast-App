@@ -43,6 +43,11 @@ export default new Router({
       path:"/test",
       name:"test",
       component:require('@/components/Material-Test').default
+    },
+    {
+      path:'/blank',
+      name:"blank",
+      component:require('@/components/Test-Blank').default
     }
 
     

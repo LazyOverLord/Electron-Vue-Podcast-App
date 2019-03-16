@@ -4,7 +4,8 @@
         
 
         <router-link to="/test"> Go to test compoent </router-link>
-
+        <p> -----------------------------------------------</p>
+        <router-link to="/blank"> Go test blank compoent </router-link>
         
             
         <div v-if="config.length == 0">
