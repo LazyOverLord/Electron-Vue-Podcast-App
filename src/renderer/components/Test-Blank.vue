@@ -5,6 +5,13 @@
         md-label="No Podcasts"
         md-description="You have'nt subscribed to any podcasts yet"
     >
+
+    <router-link to="/">
+        <md-button> Go Home </md-button>
+    </router-link>
+    
+
+
     </md-empty-state>
     
 </template>
