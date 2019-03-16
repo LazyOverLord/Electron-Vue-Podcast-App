@@ -1,7 +1,7 @@
 <template>
     <md-empty-state
         md-rounded
-        md-icon="headphones"
+        md-icon="headset"
         md-label="No Podcasts"
         md-description="You have'nt subscribed to any podcasts yet"
     >
