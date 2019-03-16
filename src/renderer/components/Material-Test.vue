@@ -1,5 +1,6 @@
 <template>
     <div >
+      <router-link to="/"> Go home </router-link>
     <md-card >
       <md-card-header>
         <div class="md-title">Material Design with Vue.js 2 Demo</div>
