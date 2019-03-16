@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
+import 'vue-material/dist/theme/default-dark.css'
 //added a comment
 
 

@@ -1,6 +1,6 @@
 <template>
     <div >
-    <md-card>
+    <md-card >
       <md-card-header>
         <div class="md-title">Material Design with Vue.js 2 Demo</div>
         <div class="md-subhead">by CodingTheSmartWay.com</div>
