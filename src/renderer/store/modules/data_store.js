@@ -21,6 +21,7 @@ const state = {
   audio_player_data:{},
   podcast_feed_data:[],
   search_results_cache:{search_term:"",results:[]},
+  search_query_cache:[]
   
 
   
@@ -142,6 +143,14 @@ const mutations = {
         
       }
     } 
+},
+
+add_Search_Query(state,search_query){
+  this.search_query_cache.push(search_query);
+},
+
+clear_Search_Query_Cache(state){
+  this.search_query_cache = [];
 },
 
 add_Podcast_Feed(state,payload){
