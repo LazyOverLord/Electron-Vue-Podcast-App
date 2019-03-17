@@ -239,7 +239,9 @@ const getters = {
     return state.config_data;
   },
 
-  
+  get_Search_Query_Cache(state,getters){
+    return state.search_query_cache;
+  },
 
   get_Audio_Data(state,getters){
     return state.audio_player_data;
