@@ -2,40 +2,60 @@
     <div>
 
     <router-link to="/"> Go Home </router-link>
-    <md-card>
+    <p> -------------------------------- </p>
+    <md-card v-for="(data,i) in config" md-with-hover>
       <md-card-header>
         <md-card-header-text>
-          <div class="md-title">Media card</div>
+          <div class="md-title">{{data.name}}</div>
           <div class="md-subhead">Big size</div>
         </md-card-header-text>
 
         <md-card-media md-big>
-          <img src="https://vuematerial.io/assets/examples/cover.png" alt="People">
+          <img :src="data.cover_path" alt="People">
         </md-card-media>
       </md-card-header>
 
       <md-card-actions>
-        <md-button>Action</md-button>
-        <md-button>Action</md-button>
+        <router-link :to="`/podcasts/${data.id}`">
+            <md-button> Go To Feed  </md-button>
+        </router-link>
       </md-card-actions>
     </md-card>
+
+
+    
+
 
     </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
     name:"card_test",
     data(){
         return{
-
+            test:["sutton","connor"]
         }
+    },
+
+    computed:{
+        ...mapGetters({
+            config:"getConfigAll",
+            
+        }),   
     }
+
 }
 </script>
 
 <style scoped>
-
+    .md-card {
+    width: 350px;
+    margin: 8px;
+    display: inline-block;
+    vertical-align: top;
+  }
 </style>
 
 
