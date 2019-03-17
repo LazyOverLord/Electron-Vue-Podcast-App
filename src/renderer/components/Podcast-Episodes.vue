@@ -42,7 +42,9 @@
                 <ul>
                     <li v-for="(data, i) in podcast_episodes">
                 
-                        <button @click="play_Episode(i,podcast_data.cover_path)"> Play </button>
+                        <md-button class="md-icon-button" @click="play_Episode(i,podcast_data.cover_path)"> 
+                            <md-icon> play_arrow </md-icon>
+                        </md-button>
                         <img :src="podcast_data.cover_path"/>
                         <p>{{data.title}}</p>
                         <md-button @click="set_Current_Desc(data.title,data.desc,i)"> info </md-button>
