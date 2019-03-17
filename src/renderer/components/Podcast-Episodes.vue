@@ -34,6 +34,7 @@
 
             <div v-if="podcast_episodes.length == 0">
                 <p> Loading Podcast Data </p>
+                <md-progress-spinner :md-diameter="100" :md-stroke="10" md-mode="indeterminate"></md-progress-spinner>
             </div>
         
             <div v-else>
