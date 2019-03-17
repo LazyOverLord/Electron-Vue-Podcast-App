@@ -53,6 +53,11 @@ export default new Router({
       path:'/card_test',
       name:"card_test",
       component:require('@/components/Card-Test').default
+    },
+    {
+      path:"/test_drawer",
+      name:"test_drawer",
+      component:require('@/components/Nav-Test').default
     }
 
     

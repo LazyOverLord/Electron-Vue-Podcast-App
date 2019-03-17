@@ -8,6 +8,8 @@
         <router-link to="/blank"> Go test blank compoent </router-link>
         <p> ------------------------------------------------</p>
         <router-link to="/card_test"> Go to card test </router-link>
+        <p> -------------------------------------------------</p>
+        <router-link to="/test_drawer"> Go to test drawer </router-link>
         
             
         <div v-if="config.length == 0">
