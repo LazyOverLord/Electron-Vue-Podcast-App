@@ -3,7 +3,7 @@
 
     <router-link to="/"> Go Home </router-link>
     <p> -------------------------------- </p>
-    <md-card v-for="(data,i) in config" md-with-hover>
+    <md-card v-for="data in config" md-with-hover v-bind:data="data" v-bind:key="data.id">
       <md-card-header>
         <md-card-header-text>
           <div class="md-title">{{data.name}}</div>
@@ -55,6 +55,7 @@ export default {
     margin: 8px;
     display: inline-block;
     vertical-align: top;
+    border-radius: 1em;
   }
 </style>
 

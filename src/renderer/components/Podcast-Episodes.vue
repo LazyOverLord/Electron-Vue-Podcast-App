@@ -19,12 +19,6 @@
                         <button @click="play_Episode(i,podcast_data.cover_path)"> Play </button>
                         <img :src="podcast_data.cover_path"/>
                         <p>{{data.title}}</p>
-                        
-                        
-                        
-                        
-                    
-
                     </li>
             
                 </ul>
@@ -136,7 +130,8 @@ export default {
      list-style: none;
      padding-right: 1em;
  }
-
+ 
+/*
  ul li {
      width:inherit;
      width:inherit;
@@ -149,8 +144,8 @@ export default {
  ul li button{
      float:left;
      padding-left:10px;
- }
-
+ }*/
+    
  img{
      float:left;
      width:75px;
