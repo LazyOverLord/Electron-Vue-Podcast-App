@@ -4,6 +4,17 @@
         
         <p> Podcast Episodes</p>
 
+        <md-dialog :md-active.sync="showDialog">
+                 <md-dialog-title> {{desc_obj.title}}</md-dialog-title>
+                        <p> {{desc_obj.desc}}</p>
+
+                <md-dialog-actions>
+                    <md-button @click="clear_Desc_Data()"> close </md-button>
+                </md-dialog-actions>
+
+        </md-dialog>
+
+
         <div v-if="error == false">
 
             <div v-if="podcast_episodes.length == 0">
@@ -19,6 +30,10 @@
                         <button @click="play_Episode(i,podcast_data.cover_path)"> Play </button>
                         <img :src="podcast_data.cover_path"/>
                         <p>{{data.title}}</p>
+                        <md-button @click="set_Current_Desc(data.title,data.desc)"> info </md-button>
+                        
+
+                        
                     </li>
             
                 </ul>
@@ -59,7 +74,8 @@ export default {
     name:'podcast-episodes',
     data(){
         return{
-         
+         showDialog:false,
+         desc_obj:{}
           
           
              
@@ -69,6 +85,19 @@ export default {
     props:['podcast_data','podcast_episodes','error','search_podcast'],
 
     methods:{
+
+        set_Current_Desc:function(title,desc){
+            var payload = {};
+            payload["title"] = title;
+            payload["desc"] = desc;
+            this.desc_obj = payload;
+            this.showDialog = true;
+        },
+
+        clear_Desc_Data:function(){
+            this.desc_obj = {};
+            this.showDialog = false;
+        },
         cleanUpFeed_Data:function(){
             console.log("Exiting and cleaning up child-podcast-episodes");
             
