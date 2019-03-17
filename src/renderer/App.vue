@@ -2,7 +2,7 @@
   <div id="app">
     <router-view></router-view>
 
-    <audio-player></audio-player>
+    <!--<audio-player></audio-player>-->
     
   </div>
 </template>
