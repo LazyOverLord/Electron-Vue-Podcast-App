@@ -48,6 +48,11 @@ export default new Router({
       path:'/blank',
       name:"blank",
       component:require('@/components/Test-Blank').default
+    },
+    {
+      path:'/card_test',
+      name:"card_test",
+      component:require('@/components/Card-Test').default
     }
 
     
