@@ -5,11 +5,26 @@
         <p> Podcast Episodes</p>
 
         <md-dialog :md-active.sync="showDialog">
-                 <md-dialog-title> {{desc_obj.title}}</md-dialog-title>
-                        <p> {{desc_obj.desc}}</p>
+                
+                <md-card>
+                    <md-card-header>
+                        <md-card-header-text>
+                            <div class="md-title"> {{desc_obj.title}}</div>
+                            <div class="md-subhead"> {{desc_obj.desc}}</div>
+                        </md-card-header-text>
+
+                        <md-card-media md-big>
+                            <img :src="podcast_data.cover_path" alt="People">
+                        </md-card-media>
+
+                    </md-card-header>
+                </md-card>
+                    
 
                 <md-dialog-actions>
+                    <md-button @click="play_Episode(desc_obj.episode_index,desc_obj.cover_path)"> Play </md-button>
                     <md-button @click="clear_Desc_Data()"> close </md-button>
+                    
                 </md-dialog-actions>
 
         </md-dialog>
@@ -30,7 +45,7 @@
                         <button @click="play_Episode(i,podcast_data.cover_path)"> Play </button>
                         <img :src="podcast_data.cover_path"/>
                         <p>{{data.title}}</p>
-                        <md-button @click="set_Current_Desc(data.title,data.desc)"> info </md-button>
+                        <md-button @click="set_Current_Desc(data.title,data.desc,i)"> info </md-button>
                         
 
                         
@@ -86,10 +101,11 @@ export default {
 
     methods:{
 
-        set_Current_Desc:function(title,desc){
+        set_Current_Desc:function(title,desc,episode_index){
             var payload = {};
             payload["title"] = title;
             payload["desc"] = desc;
+            payload["episode_index"] = episode_index;
             this.desc_obj = payload;
             this.showDialog = true;
         },
@@ -152,7 +168,9 @@ export default {
 
 <style scoped>
 
-
+.md-dialog{
+    border-radius: 1em;
+}
  
 
  ul{
