@@ -58,6 +58,11 @@ export default new Router({
       path:"/test_drawer",
       name:"test_drawer",
       component:require('@/components/Nav-Test').default
+    },
+    {
+      path:"/layout",
+      name:"layout",
+      component:require('@/components/Grid-Test').default
     }
 
     
