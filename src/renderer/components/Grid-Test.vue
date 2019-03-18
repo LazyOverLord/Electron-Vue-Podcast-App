@@ -1,6 +1,6 @@
 <template>
     <div class="md-layout">
-        <div class="md-layout-item">
+        <div class="md-layout-item md-large">
             <router-link to="/"> Go Home </router-link>
         </div>
         <div class="md-layout-item"></div>
