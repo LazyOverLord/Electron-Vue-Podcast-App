@@ -36,6 +36,7 @@ const mutations = {
       var temp = {};
       temp["id"] = state.config_data[i]["id"];
       temp["data"] = [];
+      temp["limited_data"] = [];
       
 
       default_state.push(temp);
