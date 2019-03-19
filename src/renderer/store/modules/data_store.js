@@ -76,21 +76,26 @@ const mutations = {
 
   load_More_Podcast_Episodes(state,podcast_id){
     // expects podcast id 
-    for(var i = 0;i<state.podcast_feed_data;i++){
+    for(var i = 0;i<state.podcast_feed_data.length;i++){
       if(podcast_id == state.podcast_feed_data[i].id){
-        var limited_data_length = state.podcast_feed_data[i].limited_data.length;
-        limited_data_length +=50;
-        if(limited_data_length <= state.podcast_feed_data[i].data.length){
-          var current_data_index = limited_data_length -=50;
-          for(var v = current_data_index;v<limited_data_length;v++){
-            var new_data = state.podcast_feed_data[i].data[v];
-            state.podcast_feed_data[i].limited_data.push(new_data);
-          }
+        var limted_data_length = state.podcast_feed_data[i].limited_data.length;
+        var feed_length = state.podcast_feed_data[i].data.length;
+        var check_range = limted_data_length + 50;
+        
+
+        check_range <= feed_length;
+        if(check_range <= feed_length){
+            var new_data = state.podcast_feed_data[i].data.slice(limted_data_length,check_range);
+            for(var t = 0;t<new_data.length;t++){
+              state.podcast_feed_data[i].limited_data.push(new_data[t]);
+            }
+        }
+
         }
       }
     }
     
-  },
+  ,
 
 
   
