@@ -56,6 +56,8 @@
             
                 </ul>
 
+                <md-button @click="load_More_Episodes()"> Load More Episodes </md-button>
+
             </div>
         </div>
 
@@ -125,6 +127,10 @@ export default {
 
         change_Display_Order:function(){
             this.$emit('change_Order');
+        },
+
+        load_More_Episodes:function(){
+            this.$emit('load_episodes');
         },
 
         

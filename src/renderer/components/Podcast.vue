@@ -108,13 +108,27 @@ export default {
                     episodes.push(temp);
                     }
 
-            this.feed_data = episodes;
+           
 
             var data = {};
             data["id"] = this.$route.params.id;
             data["data"] = episodes;
 
+            if(episodes.length >= 50){
+                var limited_data = [];
+                for(var i = 0;i<50;i++){
+                    limited_data.push(episodes[i]);
+                }
+
+                data["limited_data"] = limited_data;
+            }
+
+            else{
+                data['limited_data'] = episodes;
+            }
+
             
+            this.feed_data = data['limited_data'];
 
             this.$store.commit('setPodcastFeed',data);
             
@@ -163,7 +177,7 @@ export default {
         }
         
         else{
-            this.feed_data = result.data;
+            this.feed_data = result.limited_data;
         }
 
      

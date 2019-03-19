@@ -141,6 +141,7 @@ const mutations = {
     for(var i = 0;i<state.podcast_feed_data.length;i++){
       if(state.podcast_feed_data[i].id == payload.id){
         state.podcast_feed_data[i].data = payload.data;
+        state.podcast_feed_data[i].limited_data = payload.limited_data;
         
       }
     } 
