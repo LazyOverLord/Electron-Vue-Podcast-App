@@ -121,6 +121,9 @@ export default {
         },
         cleanUpFeed_Data:function(){
             console.log("Exiting and cleaning up child-podcast-episodes");
+            var id = this.$route.params.id;
+            console.log("Reseting limited podcast episodes value on podcast_feed_data ");
+            this.$store.commit("reset_Limited_Podcast_Episodes",id);
             
             
         },

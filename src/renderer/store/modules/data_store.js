@@ -74,6 +74,16 @@ const mutations = {
     state.search_results_cache.results = payload.results;
   },
 
+  reset_Limited_Podcast_Episodes(state,podcast_id){
+    for(var i = 0;i<state.podcast_feed_data.length;i++){
+      if(podcast_id == state.podcast_feed_data[i].id){
+        var new_data = state.podcast_feed_data[i].data.slice(0,50);
+        state.podcast_feed_data[i].limited_data = new_data;
+        
+      }
+    }
+  },
+
   load_More_Podcast_Episodes(state,podcast_id){
     // expects podcast id 
     for(var i = 0;i<state.podcast_feed_data.length;i++){
