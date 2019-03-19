@@ -3,7 +3,8 @@
         <podcast-info :podcast_data="podcast_config"></podcast-info>
         <podcast-episodes @play_episode="play"
         :error="network_error" :search_podcast="false"
-        :podcast_episodes="feed_data" :podcast_data="podcast_config" ref="child_podcast_episodes" @refresh="get_Feed_Data" @change_Order="change_Order"></podcast-episodes>
+        :podcast_episodes="feed_data" :podcast_data="podcast_config" ref="child_podcast_episodes"
+         @refresh="get_Feed_Data" @change_Order="change_Order"  @load_episodes="load_new_episodes"></podcast-episodes>
         
     </div>
 </template>
@@ -54,8 +55,11 @@ export default {
     },
 
     methods:{
-    
 
+        load_new_episodes:function(){
+            var id =this.$route.params.id;
+            this.$store.commit("load_More_Podcast_Episodes",id);
+        },
         change_Order:function(){
             this.$store.commit('Change_Episode_Order',this.$route.params.id);
             

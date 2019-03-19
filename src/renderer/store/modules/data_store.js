@@ -74,7 +74,23 @@ const mutations = {
     state.search_results_cache.results = payload.results;
   },
 
-
+  load_More_Podcast_Episodes(state,podcast_id){
+    // expects podcast id 
+    for(var i = 0;i<state.podcast_feed_data;i++){
+      if(podcast_id == state.podcast_feed_data[i].id){
+        var limited_data_length = state.podcast_feed_data[i].limited_data.length;
+        limited_data_length +=50;
+        if(limited_data_length <= state.podcast_feed_data[i].data.length){
+          var current_data_index = limited_data_length -=50;
+          for(var v = current_data_index;v<limited_data_length;v++){
+            var new_data = state.podcast_feed_data[i].data[v];
+            state.podcast_feed_data[i].limited_data.push(new_data);
+          }
+        }
+      }
+    }
+    
+  },
 
 
   
