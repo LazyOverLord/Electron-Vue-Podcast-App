@@ -53,6 +53,7 @@ export default {
     beforeRouteLeave:function(to,from,next){
         console.log(to);
         this.$refs.child_podcast_episodes.cleanUpFeed_Data();
+        this.feed_data_length = 0;
         next();
     },
 
