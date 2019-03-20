@@ -109,8 +109,16 @@ export default {
                     var desc = items[i].getElementsByTagName("description")[0].textContent;
                     var enclosure = items[i].getElementsByTagName("enclosure")[0];
                     var url = enclosure.getAttribute("url");
+
+                    var temp_desc = "<div>" + desc +"</div>";
+                    var parser = new DOMParser();
+                    var desc_parser = parser.parseFromString(temp_desc,"text/html");
+                    var main_div = desc_parser.getElementsByTagName("div")[0];
+                    var clean_desc = main_div.innerText;
+
+
                     temp["title"] = title;
-                    temp["desc"] = desc;
+                    temp["desc"] = clean_desc;
                     temp["url"] = url;
                     episodes.push(temp);
                     }
