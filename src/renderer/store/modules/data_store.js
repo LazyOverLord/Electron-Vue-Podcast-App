@@ -167,7 +167,7 @@ const mutations = {
   Change_Episode_Order(state,id){
     state.podcast_feed_data.forEach((feed)=>{
       if(feed.id == id){
-        feed.data.reverse();
+        feed.limited_data.reverse();
       }
     });
 
