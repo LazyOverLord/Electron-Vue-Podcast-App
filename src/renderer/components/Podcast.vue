@@ -3,7 +3,8 @@
         <podcast-info :podcast_data="podcast_config"></podcast-info>
         <podcast-episodes @play_episode="play"
         :error="network_error" :search_podcast="false"
-        :podcast_episodes="feed_data" :podcast_data="podcast_config" ref="child_podcast_episodes"
+        :podcast_episodes="feed_data" :podcast_data="podcast_config" :full_feed_length="feed_data_length"
+        ref="child_podcast_episodes"
          @refresh="get_Feed_Data" @change_Order="change_Order"  @load_episodes="load_new_episodes"></podcast-episodes>
         
     </div>
@@ -20,6 +21,7 @@ export default {
             podcast_config:"",
             feed_data:[],
             network_error:false,
+            feed_data_length:""
             
             
             
@@ -133,6 +135,7 @@ export default {
 
             
             this.feed_data = data['limited_data'];
+            this.feed_data_length = episodes.length;
 
             this.$store.commit('setPodcastFeed',data);
             
@@ -182,6 +185,7 @@ export default {
         
         else{
             this.feed_data = result.limited_data;
+            this.feed_data_length = result.data.length;
         }
 
      

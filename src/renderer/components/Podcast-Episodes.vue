@@ -56,7 +56,10 @@
             
                 </ul>
 
-                <md-button @click="load_More_Episodes()"> Load More Episodes </md-button>
+                <div v-if="podcast_episodes.length < full_feed_length">
+                    <md-button @click="load_More_Episodes()"> Load More Episodes </md-button>
+                </div>
+                
 
             </div>
         </div>
@@ -102,8 +105,7 @@ export default {
         }
     },
 
-    props:['podcast_data','podcast_episodes','error','search_podcast'],
-
+    props:['podcast_data','podcast_episodes','error','search_podcast','full_feed_length'],
     methods:{
 
         set_Current_Desc:function(title,desc,episode_index){
