@@ -21,7 +21,8 @@ export default {
             podcast_config:"",
             feed_data:[],
             network_error:false,
-            feed_data_length:""
+            feed_data_length:"",
+            reversed_data:false
             
             
             
@@ -61,10 +62,20 @@ export default {
 
         load_new_episodes:function(){
             var id =this.$route.params.id;
+            if(this.reversed_data){
+                this.$store.commit('Change_Episode_Order',this.$route.params.id);
+            }
             this.$store.commit("load_More_Podcast_Episodes",id);
         },
         change_Order:function(){
             this.$store.commit('Change_Episode_Order',this.$route.params.id);
+
+            if(this.reversed_data){
+                this.reversed_data = false
+            }
+            else{
+                this.reversed_data = true;
+            }
             
         },
 
