@@ -142,8 +142,8 @@ const mutations = {
      var id = router.currentRoute.params.id;
      for(var i = 0; i<state.podcast_feed_data.length;i++){
        if(id == state.podcast_feed_data[i].id){
-         var episode_url = state.podcast_feed_data[i].data[payload.episode_index].url;
-         var episode_title = state.podcast_feed_data[i].data[payload.episode_index].title;
+         var episode_url = state.podcast_feed_data[i].limited_data[payload.episode_index].url;
+         var episode_title = state.podcast_feed_data[i].limited_data[payload.episode_index].title;
 
          var episode_data = {}
          episode_data["title"] = episode_title;
