@@ -30,6 +30,14 @@ const state = {
 
 const mutations = {
 
+  add_Desc_To_Feed(state,payload){
+    for(var i = 0;i<state.config_data.length;i++){
+      if(state.config_data[i].id == payload.id){
+        state.config_data[i].desc = payload.desc;
+      }
+    }
+  },
+
   set_Default_Feed_State(state){
     var default_state = [];
     for(var i =0;i<state.config_data.length;i++){
@@ -49,6 +57,7 @@ const mutations = {
 
     for(var i = 0;i<state.config_data.length;i++){
       state.config_data[i].pending_downloads = [];
+      state.config_data[i].desc = "";
     }
 
     if(state.local_downloads.length == 0){

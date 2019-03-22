@@ -4,6 +4,8 @@
         <p>
             <img :src="podcast_data.cover_path">
         </p>
+        
+        <p> {{podcast_data.desc}}</p>
 
         <p>
             <router-link :to='{path:"/",exact:true}' >Go Home </router-link>
@@ -27,7 +29,7 @@ export default {
         }
     },
 
-    props:["podcast_data"],
+    props:["podcast_data",'podcast_desc'],
 
     computed:{
         
