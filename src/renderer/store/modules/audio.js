@@ -2,13 +2,13 @@ import router from '@/router'
 
 
 const state = {
-    audio_player_data:{}
+    audio:{}
 }
 
 
 const getters = {
     get_Audio_Data(state,getters){
-        return state.audio_player_data;
+        return state.audio;
       },
 
 
@@ -22,7 +22,7 @@ const mutations = {
 
     reset_Audio_State(){
       var default_state = {
-        audio_player_data:{}
+        audio:{}
       }
 
       Object.assign(state,default_state);
@@ -36,7 +36,7 @@ const mutations = {
        episode_data["url"] = payload.url;
        episode_data["cover_path"] = payload.cover_path;
 
-       state.audio_player_data = episode_data;
+       state.audio = episode_data;
 
 
       }
