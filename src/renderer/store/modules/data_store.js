@@ -18,7 +18,6 @@ var current_window = remote.getCurrentWindow();
 const state = {
   //config_data:config,
   config_data:[],
-  audio_player_data:{},
   podcast_feed_data:[],
   search_results_cache:{search_term:"",results:[]},
   pending_downloads:[],
@@ -86,7 +85,6 @@ const mutations = {
       //config_data:[],
       //local_downloads:[],
 
-      audio_player_data:{},
       podcast_feed_data:[],
       search_results_cache:{search_term:"",results:[]},
       current_download:[],
