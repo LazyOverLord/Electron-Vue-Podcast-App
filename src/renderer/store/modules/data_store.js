@@ -89,7 +89,8 @@ const mutations = {
       search_results_cache:{search_term:"",results:[]},
       current_download:[],
       download_que:[],
-      
+      audio_player:{},
+      audio_player_data:{},
 
       // clearing old unused variable
       pending_downloads:[],
