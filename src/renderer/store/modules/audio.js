@@ -19,6 +19,14 @@ const getters = {
 }
 
 const mutations = {
+
+    reset_Audio_State(){
+      var default_state = {
+        audio_player_data:{}
+      }
+
+      Object.assign(state,default_state);
+    },
     
 
      set_Audio_Data(state,payload){

@@ -203,6 +203,8 @@ var current_webcontents = remote.getCurrentWebContents();
     created:function(){
       this.$store.commit('reset_State');
       this.$store.commit('set_Default_Feed_State');
+      // resets audio module data 
+      this.$store.commit('reset_Audio_State');
       
       
 
