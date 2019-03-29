@@ -1,6 +1,6 @@
 <template>
     <div>
-        <podcast-info :podcast_data="podcast_config" :podcast_desc="current_podcast_desc"></podcast-info>
+        <podcast-info :podcast_data="podcast_config"></podcast-info>
         <podcast-episodes @play_episode="play"
         :error="network_error" :search_podcast="false"
         :podcast_episodes="feed_data" :podcast_data="podcast_config" :full_feed_length="feed_data_length"
@@ -22,8 +22,7 @@ export default {
             feed_data:[],
             network_error:false,
             feed_data_length:"",
-            reversed_data:false,
-            current_podcast_desc:""
+            reversed_data:false
             
             
             
@@ -98,12 +97,8 @@ export default {
                 var main_title = channel.getElementsByTagName('title')[0].textContent;
                 var check_image = channel.getElementsByTagName('image');
                 var desc = channel.getElementsByTagName('description')[0].textContent;
-
-                var desc_payload = {};
-                desc_payload["id"] = this.$route.params.id;
-                desc_payload["desc"] = desc;
-                this.$store.commit("add_Desc_To_Feed",desc_payload);
-
+    
+      
                 var image_url = "";
                 if(check_image.length != 0){
                         image_url = check_image[0].getElementsByTagName('url')[0].textContent;
