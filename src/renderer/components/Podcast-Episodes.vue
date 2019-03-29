@@ -92,8 +92,13 @@ export default {
         },
 
         play_Episode:function(episode_index,cover_path){
+            var id = this.$route.params.id;
+            var episode_url = this.podcast_episodes[episode_index].url;
+            var episode_title = this.podcast_episodes[episode_index].title;
             var payload = {};
-            payload["episode_index"] = episode_index;
+            
+            payload["title"] = episode_title;
+            payload["url"] = episode_url;
             payload["cover_path"] = cover_path;
 
             this.$emit('play_episode',payload);
