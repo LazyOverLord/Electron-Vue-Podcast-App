@@ -1,6 +1,6 @@
 <template>
     <div>
-        <podcast-info :podcast_data="podcast_config"></podcast-info>
+        <podcast-info :podcast_data="podcast_config" :podcast_desc="current_podcast_desc"></podcast-info>
         <podcast-episodes @play_episode="play"
         :error="network_error" :search_podcast="false"
         :podcast_episodes="feed_data" :podcast_data="podcast_config" :full_feed_length="feed_data_length"
@@ -22,7 +22,8 @@ export default {
             feed_data:[],
             network_error:false,
             feed_data_length:"",
-            reversed_data:false
+            reversed_data:false,
+            current_podcast_desc:""
             
             
             
@@ -97,6 +98,14 @@ export default {
                 var main_title = channel.getElementsByTagName('title')[0].textContent;
                 var check_image = channel.getElementsByTagName('image');
                 var desc = channel.getElementsByTagName('description')[0].textContent;
+
+                 var temp_desc = "<div>" + desc +"</div>";
+                 var parser = new DOMParser();
+                 var desc_parser = parser.parseFromString(temp_desc,"text/html");
+                 var main_div = desc_parser.getElementsByTagName("div")[0];
+                 var clean_desc = main_div.innerText;
+
+                 this.current_podcast_desc = clean_desc;
     
       
                 var image_url = "";
