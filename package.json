@@ -62,6 +62,7 @@
     "firebase": "^5.8.5",
     "firebaseui": "^3.5.2",
     "material-components-vue": "^0.26.1",
+    "sass": "^1.17.4",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-material": "^1.0.0-beta-10.2",
