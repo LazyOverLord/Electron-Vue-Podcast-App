@@ -29,12 +29,12 @@ const mutations = {
     },
     
 
-     set_Audio_Data(state,payload){
+     set_Audio_Data(state,{title,url,cover_path}){
        // payload will have title , url , cover_path
        var episode_data = {};
-       episode_data["title"] = payload.title;
-       episode_data["url"] = payload.url;
-       episode_data["cover_path"] = payload.cover_path;
+       episode_data["title"] = title;
+       episode_data["url"] = url;
+       episode_data["cover_path"] = cover_path;
 
        state.audio = episode_data;
 
