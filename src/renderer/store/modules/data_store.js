@@ -69,9 +69,9 @@ const mutations = {
     
   },
 
-  set_Search_Results_Cache(state,payload){
-    state.search_results_cache.search_term = payload.search_term;
-    state.search_results_cache.results = payload.results;
+  set_Search_Results_Cache(state,{search_term,results}){
+    state.search_results_cache.search_term = search_term;
+    state.search_results_cache.results = results;
   },
 
 
